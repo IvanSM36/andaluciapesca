@@ -1,8 +1,7 @@
-import 'package:andaluciapesca/src/home.dart';
+import 'package:andaluciapesca/src/cuenta/home.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
 class IniciarSesionEmail extends StatefulWidget {
   const IniciarSesionEmail({super.key});
@@ -14,11 +13,15 @@ class IniciarSesionEmail extends StatefulWidget {
 class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
   @override
   Widget build(BuildContext context) {
-    String _email;
-    String _password;
+    final myController = TextEditingController();
+
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
 
     return MaterialApp(
       title: 'Andalucia Pesca',
+      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
+
       home: Scaffold(
         body: Container(
           // Fondo gif
@@ -64,7 +67,9 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                   child: Form(
                     child: Column(
                       children: [
+                        ///// Campo E-mail /////
                         TextFormField(
+                          controller: emailController,
                           style: const TextStyle(
                             color: Colors.white,
                           ),
@@ -80,16 +85,14 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                               color: Colors.white,
                             ),
                           ),
-                          onChanged: (value) {
-                            setState(() {
-                              _email = value;
-                            });
-                          },
                         ),
+
+                        /////  Campo contraseña /////
                         TextFormField(
+                          controller: passwordController,
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 255, 0,
-                                  0)), // Establece el color del texto introducido
+                              color: Color.fromARGB(255, 255, 255,
+                                  255)), // Establece el color del texto introducido
                           decoration: const InputDecoration(
                             border: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -101,14 +104,8 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                                 color: Colors
                                     .white), // Establece el color del texto del label
                           ),
-
                           obscureText:
                               true, // Convierte en puntos la contraseña
-                          onChanged: (value) {
-                            setState(() {
-                              _password = value;
-                            });
-                          },
                         ),
 
                         Container(
@@ -127,11 +124,66 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                           // Boton
                           child: ElevatedButton(
                             // Evento del boton
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Home()));
+                            onPressed: () async {
+                              try {
+                                final credential = await FirebaseAuth.instance
+                                    .signInWithEmailAndPassword(
+                                        email: emailController.text,
+                                        password: passwordController.text);
+
+                                FirebaseAuth.instance
+                                    .authStateChanges()
+                                    .listen((User? user) {
+                                  if (user != null) {
+                                    // El usuario inició sesión con éxito
+                                    Navigator.of(context).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (context) => const Home(),
+                                      ),
+                                    );
+                                  }
+                                });
+                              } on FirebaseAuthException catch (e) {
+                                if (e.code == 'user-not-found') {
+                                  // El inicio de sesión falló
+                                  // ignore: use_build_context_synchronously
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(
+                                          'Error de inicio de sesión'),
+                                      content: const Text(
+                                          'No existe una cuenta con ese Email.'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                } else if (e.code == 'wrong-password') {
+                                  // El inicio de sesión falló
+                                  // ignore: use_build_context_synchronously
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => AlertDialog(
+                                      title: const Text(
+                                          'Error de inicio de sesión'),
+                                      content:
+                                          const Text('Contraseña incorrecta'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              }
                             },
 
                             // Diseño del boton

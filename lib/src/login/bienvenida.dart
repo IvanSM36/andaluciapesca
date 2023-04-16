@@ -1,9 +1,9 @@
-import 'package:andaluciapesca/src/home.dart';
+import 'package:andaluciapesca/src/cuenta/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:andaluciapesca/src/iniciar_sesion_email.dart';
-import 'package:andaluciapesca/src/registrate.dart';
+import 'package:andaluciapesca/src/login/iniciar_sesion_email.dart';
+import 'package:andaluciapesca/src/login/registrate.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Bienvenida extends StatelessWidget {
@@ -16,6 +16,8 @@ class Bienvenida extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Andalucia Pesca',
+      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
+
       home: Scaffold(
         body: Container(
           // Fondo gif

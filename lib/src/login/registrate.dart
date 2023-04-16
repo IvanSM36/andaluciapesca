@@ -7,6 +7,8 @@ class Registrate extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Andalucia Pesca',
+      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
+
       home: Scaffold(
         body: Container(
           // Fondo gif
