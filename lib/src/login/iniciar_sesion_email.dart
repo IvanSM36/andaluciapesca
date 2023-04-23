@@ -1,4 +1,4 @@
-import 'package:andaluciapesca/src/cuenta/home.dart';
+import 'package:andaluciapesca/src/cuenta/menu_navegacion.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -138,7 +138,7 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                                     // El usuario inició sesión con éxito
                                     Navigator.of(context).pushReplacement(
                                       MaterialPageRoute(
-                                        builder: (context) => const Home(),
+                                        builder: (context) => const MenuNav(),
                                       ),
                                     );
                                   }

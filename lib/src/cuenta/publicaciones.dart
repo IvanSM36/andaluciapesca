@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 int _currentIndex = 0; // Inicializando _currentIndex a 0
 
-class Informacion extends StatefulWidget {
-  const Informacion({super.key});
+class Publicaciones extends StatefulWidget {
+  const Publicaciones({super.key});
 
   @override
-  State<Informacion> createState() => _Informacion();
+  State<Publicaciones> createState() => _Informacion();
 }
 
-class _Informacion extends State<Informacion> {
+class _Informacion extends State<Publicaciones> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,7 +26,7 @@ class _Informacion extends State<Informacion> {
           backgroundColor: const Color.fromARGB(255, 61, 75, 59),
           elevation: 5,
           centerTitle: true,
-          title: const Text('Información'),
+          title: const Text('Andalucia Pesca'),
         ),
         body: Container(
           color: const Color.fromARGB(255, 131, 160, 126),

@@ -31,7 +31,6 @@ class _ClubsCompeticion extends State<ClubsCompeticion> {
         body: Container(
           color: const Color.fromARGB(255, 131, 160, 126),
         ),
-        bottomNavigationBar: _menuNavegacion(context),
       ),
     );
   }

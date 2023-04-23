@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-import 'package:andaluciapesca/src/cuenta/home.dart';
+import 'package:andaluciapesca/src/cuenta/menu_navegacion.dart';
 import 'package:andaluciapesca/src/login/bienvenida.dart';
 
 void main() async {
@@ -35,9 +35,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/',
       routes: {
-        '/': (context) => const Home(),
+        '/': (context) => const PerfilUsuario(),
         '/bienvenida': (context) => Bienvenida(),
         '/entrarEmail': (context) => const IniciarSesionEmail(),
         '/registrate': (context) => const Registrate(),
