@@ -27,6 +27,23 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
           elevation: 5,
           centerTitle: true,
           title: const Text('Perfil de usuario'),
+          actions: <Widget>[
+            PopupMenuButton(
+              itemBuilder: (BuildContext context) {
+                return <PopupMenuEntry>[
+                  const PopupMenuItem(
+                    child: Text('Editar perfil'),
+                  ),
+                  const PopupMenuItem(
+                    child: Text('Cerrar sesión'),
+                  ),
+                  const PopupMenuItem(
+                    child: Text('Borrar cuenta', style: TextStyle(color: Colors.red)),
+                  ),
+                ];
+              },
+            ),
+          ],
         ),
         body: Stack(
           children: [
@@ -51,18 +68,106 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.5),
-                      spreadRadius: 2.0,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
+                      spreadRadius: 3.0,
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
                     )
                   ],
                 ),
-                child: const Center(
-                  child: CircleAvatar(
-                    radius: 80,
-                    backgroundImage: NetworkImage(
-                        "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/404.jpg"),
-                  ),
+              ),
+            ),
+            Positioned(
+              top: 20,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: LinearGradient(
+                            colors: [
+                              Color.fromARGB(255, 41, 46, 40),
+                              Color.fromARGB(255, 68, 105, 63),
+                              Color.fromARGB(255, 113, 168, 105),
+                              Color.fromARGB(255, 158, 224, 147),
+                              Color.fromARGB(255, 161, 231, 150),
+                              Color.fromARGB(255, 166, 241, 154),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          ),
+                        ),
+                        width: 170,
+                        height: 170,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                spreadRadius: 3.0,
+                                blurRadius: 3,
+                                offset: const Offset(0, 4),
+                              ),
+                            ],
+                          ),
+                          child: const Center(
+                            child: CircleAvatar(
+                              radius: 80,
+                              backgroundImage: NetworkImage(
+                                  "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/980.jpg"),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Positioned(
+              top: 70,
+              right: 30,
+              child: IconButton(
+                icon: const Icon(Icons.message),
+                iconSize: 50,
+                color: Colors.white,
+                onPressed: () {
+                  // Acción que se ejecutará al presionar el icono de editar
+                },
+              ),
+            ),
+            Positioned(
+              top: 70,
+              left: 30,
+              child: IconButton(
+                icon: const Icon(Icons.notifications_sharp),
+                iconSize: 50,
+                color: Colors.white,
+                onPressed: () {
+                  // Acción que se ejecutará al presionar el icono de editar
+                },
+              ),
+            ),
+            Positioned(
+              top: 200,
+              left: 125,
+              child: Text(
+                "@IvanSM",
+                style: TextStyle(
+                  fontSize: 32,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      offset: const Offset(3.0, 3.0),
+                      blurRadius: 6.0,
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+                  ],
                 ),
               ),
             ),
