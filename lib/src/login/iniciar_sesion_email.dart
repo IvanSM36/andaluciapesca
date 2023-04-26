@@ -136,11 +136,7 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                                     .listen((User? user) {
                                   if (user != null) {
                                     // El usuario inició sesión con éxito
-                                    Navigator.of(context).pushReplacement(
-                                      MaterialPageRoute(
-                                        builder: (context) => const MenuNav(),
-                                      ),
-                                    );
+                                    Navigator.pushNamed(context, '/menuNav');
                                   }
                                 });
                               } on FirebaseAuthException catch (e) {

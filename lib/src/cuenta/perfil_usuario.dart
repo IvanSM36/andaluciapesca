@@ -1,3 +1,6 @@
+import 'package:andaluciapesca/src/login/bienvenida.dart';
+import 'package:andaluciapesca/src/utils/LoginGoogleUtils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 int _currentIndex = 0; // Inicializando _currentIndex a 0
@@ -34,11 +37,22 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   const PopupMenuItem(
                     child: Text('Editar perfil'),
                   ),
-                  const PopupMenuItem(
-                    child: Text('Cerrar sesión'),
+                  PopupMenuItem(
+                    child: const Text('Cerrar sesión'),
+                    onTap: () => {
+                      LoginGoogleUtils().signOutGoogle(),
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return Bienvenida();
+                          },
+                        ),
+                      )
+                    },
                   ),
                   const PopupMenuItem(
-                    child: Text('Borrar cuenta', style: TextStyle(color: Colors.red)),
+                    child: Text('Borrar cuenta',
+                        style: TextStyle(color: Colors.red)),
                   ),
                 ];
               },

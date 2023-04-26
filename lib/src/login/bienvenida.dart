@@ -1,4 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:andaluciapesca/src/cuenta/menu_navegacion.dart';
+import 'package:andaluciapesca/src/utils/LoginGoogleUtils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -76,47 +79,35 @@ class Bienvenida extends StatelessWidget {
                   // Boton
                   child: ElevatedButton(
                     // Evento para el boton
-                    onPressed: () async {
-                      final GoogleSignInAccount? googleUser =
-                          await googleSignIn.signIn();
-                      final GoogleSignInAuthentication googleAuth =
-                          await googleUser!.authentication;
-
-                      final AuthCredential credential =
-                          GoogleAuthProvider.credential(
-                        accessToken: googleAuth.accessToken,
-                        idToken: googleAuth.idToken,
-                      );
-
-                      final UserCredential userCredential =
-                          await _auth.signInWithCredential(credential);
-                      final User? user = userCredential.user;
-
-                      if (user != null) {
-                        // El usuario inició sesión con éxito
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (context) => const MenuNav(),
-                          ),
-                        );
-                      } else {
-                        // El inicio de sesión falló
-                        // ignore: use_build_context_synchronously
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: const Text('Error de inicio de sesión'),
-                            content: const Text(
-                                'No se pudo iniciar sesión con Google. Por favor, intenta nuevamente.'),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
+                    onPressed: () {
+                      LoginGoogleUtils().signInWithGoogle().then((user) {
+                        // Comprobamos si se a iniciadp sesion o no
+                        if (user != null) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return Bienvenida();
+                              },
+                            ),
+                          ); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
+                        } else {
+                          // Si falla nos mostrara una ventana de alerta con el mensajer de error
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Error de inicio de sesión'),
+                              content: const Text(
+                                  'No se pudo iniciar sesión con Google. Por favor, intenta nuevamente.'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      });
                     },
 
                     //Diseño del boton
@@ -182,11 +173,7 @@ class Bienvenida extends StatelessWidget {
                   child: ElevatedButton(
                     // Evento del boton
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const IniciarSesionEmail()));
+                      Navigator.pushNamed(context, '/entrarEmail');
                     },
 
                     // Diseño del boton
@@ -249,10 +236,7 @@ class Bienvenida extends StatelessWidget {
                   child: ElevatedButton(
                     // Evento del boton
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Registrate()));
+                      Navigator.pushNamed(context, '/registrate');
                     },
                     // Diseño del boton
                     style: ElevatedButton.styleFrom(
