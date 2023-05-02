@@ -35,9 +35,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: "/",
+      home: Bienvenida(),
       routes: {
-        '/': (context) => Bienvenida(),
         '/bienvenida': (context) => Bienvenida(),
         '/entrarEmail': (context) => const IniciarSesionEmail(),
         '/registrate': (context) => const Registrate(),

@@ -28,11 +28,12 @@ class _MenuNavState extends State<MenuNav> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
+      body: pantallas[selectedIndex],
+      /* body: PageView(
         controller: pageController,
         onPageChanged: onItemTapped,
         children: pantallas,
-      ),
+      ),*/
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: false, // Oculta el label de los demas items
         showSelectedLabels: false, // Oculta el label del item seleccionado
@@ -41,8 +42,9 @@ class _MenuNavState extends State<MenuNav> {
         unselectedItemColor: Colors.white,
         iconSize: 28, // tamaño de los iconos
         backgroundColor: const Color.fromARGB(255, 61, 75, 59),
+        onTap: onItemTapped,
         currentIndex: selectedIndex,
-        onTap: onItemTap,
+
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -70,9 +72,5 @@ class _MenuNavState extends State<MenuNav> {
     setState(() {
       selectedIndex = index;
     });
-  }
-
-  void onItemTap(int selectedItems) {
-    pageController.jumpToPage(selectedItems);
   }
 }

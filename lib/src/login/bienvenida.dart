@@ -1,12 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:andaluciapesca/src/cuenta/menu_navegacion.dart';
 import 'package:andaluciapesca/src/utils/LoginGoogleUtils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import 'package:andaluciapesca/src/login/iniciar_sesion_email.dart';
-import 'package:andaluciapesca/src/login/registrate.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class Bienvenida extends StatelessWidget {
@@ -18,7 +15,6 @@ class Bienvenida extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Andalucia Pesca',
       debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
 
       home: Scaffold(
@@ -81,15 +77,10 @@ class Bienvenida extends StatelessWidget {
                     // Evento para el boton
                     onPressed: () {
                       LoginGoogleUtils().signInWithGoogle().then((user) {
-                        // Comprobamos si se a iniciadp sesion o no
+                        // Comprobamos si se a iniciado sesion o no
                         if (user != null) {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return Bienvenida();
-                              },
-                            ),
-                          ); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
+                          Navigator.pushNamed(context,
+                              "/menuNav"); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
                         } else {
                           // Si falla nos mostrara una ventana de alerta con el mensajer de error
                           showDialog(

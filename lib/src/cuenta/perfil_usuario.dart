@@ -1,6 +1,7 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:andaluciapesca/src/login/bienvenida.dart';
 import 'package:andaluciapesca/src/utils/LoginGoogleUtils.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 int _currentIndex = 0; // Inicializando _currentIndex a 0
@@ -16,7 +17,6 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Andalucia app',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
@@ -39,15 +39,18 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   ),
                   PopupMenuItem(
                     child: const Text('Cerrar sesión'),
-                    onTap: () => {
-                      LoginGoogleUtils().signOutGoogle(),
-                      Navigator.of(context).push(
+                    onTap: () async {
+                      await LoginGoogleUtils().signOutGoogle();
+
+                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
                         MaterialPageRoute(
-                          builder: (context) {
+                          builder: (BuildContext context) {
                             return Bienvenida();
                           },
                         ),
-                      )
+                        (_) => false,
+                      );
                     },
                   ),
                   const PopupMenuItem(
@@ -185,6 +188,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                 ),
               ),
             ),
+            Container()
           ],
         ),
       ),
