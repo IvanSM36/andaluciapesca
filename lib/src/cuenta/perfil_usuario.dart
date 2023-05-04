@@ -268,84 +268,78 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                             ],
                           ),
 
-                          //////// Menu Galeria ///////
-                          Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  "Capturas",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [
-                                      Shadow(
-                                        offset: const Offset(3.0, 3.0),
-                                        blurRadius: 6.0,
-                                        color: Colors.black.withOpacity(0.5),
-                                      ),
+                          //////// Menu TabBar ///////
+
+                          Container(
+                            height: 600,
+                            child: DefaultTabController(
+                              length: 3,
+                              child: Column(
+                                children: [
+                                  const TabBar(
+                                    tabs: [
+                                      Tab(text: "Capturas"),
+                                      Tab(text: "Zonas"),
+                                      Tab(text: "Equipo"),
                                     ],
                                   ),
-                                ),
-                                Text(
-                                  "Zonas",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [
-                                      Shadow(
-                                        offset: const Offset(3.0, 3.0),
-                                        blurRadius: 6.0,
-                                        color: Colors.black.withOpacity(0.5),
-                                      ),
-                                    ],
+                                  Expanded(
+                                    child: TabBarView(
+                                      children: [
+                                        GridView.builder(
+                                          // physics: const NeverScrollableScrollPhysics(), // Desactiva el scroll del propio GridView
+                                          shrinkWrap: true,
+                                          itemCount: images.length,
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount:
+                                                3, // Número de columnas
+                                            mainAxisSpacing:
+                                                2.0, // Espacio vertical entre elementos
+                                            crossAxisSpacing:
+                                                2.0, // Espacio horizontal entre elementos
+                                          ),
+
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Image.network(images[index],
+                                                fit: BoxFit.cover);
+                                          },
+                                        ),
+                                        GridView.count(
+                                          crossAxisCount: 3,
+                                          children: List.generate(
+                                            6,
+                                            (index) => Center(
+                                              child: Text(
+                                                'Zona $index',
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        GridView.count(
+                                          crossAxisCount: 3,
+                                          children: List.generate(
+                                            6,
+                                            (index) => Center(
+                                              child: Text(
+                                                'Equipo $index',
+                                                style: TextStyle(fontSize: 18),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  "Equipo",
-                                  style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [
-                                      Shadow(
-                                        offset: const Offset(3.0, 3.0),
-                                        blurRadius: 6.0,
-                                        color: Colors.black.withOpacity(0.5),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           ////////////////////////////////////////////////
 
                           //////////////// GALERIA ///////////////////////
-                          GridView.builder(
-                            physics:
-                                const NeverScrollableScrollPhysics(), // Desactiva el scroll del propio GridView
-                            shrinkWrap: true,
-                            itemCount: images.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 3, // Número de columnas
-                              mainAxisSpacing:
-                                  2.0, // Espacio vertical entre elementos
-                              crossAxisSpacing:
-                                  2.0, // Espacio horizontal entre elementos
-                            ),
-
-                            itemBuilder: (BuildContext context, int index) {
-                              return Image.network(images[index],
-                                  fit: BoxFit.cover);
-                            },
-                          ),
-                          ////////////////////////////////////////////////
                         ],
                       ),
                     ),
@@ -359,4 +353,80 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
   }
 }
 
-                                 // Hace que el GridView se ajuste al body
+                          // Padding(
+                          //   padding: const EdgeInsets.all(20.0),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //     mainAxisSize: MainAxisSize.max,
+                          //     children: [
+                          //       Text(
+                          //         "Capturas",
+                          //         style: TextStyle(
+                          //           fontSize: 25,
+                          //           color: Colors.white,
+                          //           fontWeight: FontWeight.bold,
+                          //           shadows: [
+                          //             Shadow(
+                          //               offset: const Offset(3.0, 3.0),
+                          //               blurRadius: 6.0,
+                          //               color: Colors.black.withOpacity(0.5),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       Text(
+                          //         "Zonas",
+                          //         style: TextStyle(
+                          //           fontSize: 25,
+                          //           color: Colors.white,
+                          //           fontWeight: FontWeight.bold,
+                          //           shadows: [
+                          //             Shadow(
+                          //               offset: const Offset(3.0, 3.0),
+                          //               blurRadius: 6.0,
+                          //               color: Colors.black.withOpacity(0.5),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //       Text(
+                          //         "Equipo",
+                          //         style: TextStyle(
+                          //           fontSize: 25,
+                          //           color: Colors.white,
+                          //           fontWeight: FontWeight.bold,
+                          //           shadows: [
+                          //             Shadow(
+                          //               offset: const Offset(3.0, 3.0),
+                          //               blurRadius: 6.0,
+                          //               color: Colors.black.withOpacity(0.5),
+                          //             ),
+                          //           ],
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
+
+
+
+                          //  GridView.builder(
+                          //   physics:
+                          //       const NeverScrollableScrollPhysics(), // Desactiva el scroll del propio GridView
+                          //   shrinkWrap: true,
+                          //   itemCount: images.length,
+                          //   gridDelegate:
+                          //       const SliverGridDelegateWithFixedCrossAxisCount(
+                          //     crossAxisCount: 3, // Número de columnas
+                          //     mainAxisSpacing:
+                          //         2.0, // Espacio vertical entre elementos
+                          //     crossAxisSpacing:
+                          //         2.0, // Espacio horizontal entre elementos
+                          //   ),
+
+                          //   itemBuilder: (BuildContext context, int index) {
+                          //     return Image.network(images[index],
+                          //         fit: BoxFit.cover);
+                          //   },
+                          // ),
+                          ////////////////////////////////////////////////
