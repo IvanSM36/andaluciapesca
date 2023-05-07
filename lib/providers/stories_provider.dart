@@ -1,4 +1,4 @@
-import 'package:andaluciapesca/src/models/stories_model.dart';
+import 'package:andaluciapesca/models/stories_model.dart';
 
 class StoriesProvider {
   List<Storie> stories = [];

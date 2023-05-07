@@ -1,7 +1,7 @@
-import 'package:andaluciapesca/src/cuenta/clubs_competicion.dart';
-import 'package:andaluciapesca/src/cuenta/informacion.dart';
-import 'package:andaluciapesca/src/cuenta/perfil_usuario.dart';
-import 'package:andaluciapesca/src/cuenta/publicaciones.dart';
+import 'package:andaluciapesca/screens/cuenta/clubs_competicion.dart';
+import 'package:andaluciapesca/screens/cuenta/informacion.dart';
+import 'package:andaluciapesca/screens/cuenta/perfil_usuario.dart';
+import 'package:andaluciapesca/screens/cuenta/publicaciones.dart';
 import 'package:flutter/material.dart';
 
 class MenuNav extends StatefulWidget {
@@ -29,11 +29,6 @@ class _MenuNavState extends State<MenuNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: pantallas[selectedIndex],
-      /* body: PageView(
-        controller: pageController,
-        onPageChanged: onItemTapped,
-        children: pantallas,
-      ),*/
       bottomNavigationBar: BottomNavigationBar(
         showUnselectedLabels: false, // Oculta el label de los demas items
         showSelectedLabels: false, // Oculta el label del item seleccionado

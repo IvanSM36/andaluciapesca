@@ -1,4 +1,4 @@
-import 'package:andaluciapesca/src/cuenta/menu_navegacion.dart';
+import 'package:andaluciapesca/screens/cuenta/menu_navegacion.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,8 +13,6 @@ class IniciarSesionEmail extends StatefulWidget {
 class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
   @override
   Widget build(BuildContext context) {
-    final myController = TextEditingController();
-
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
 
@@ -53,8 +51,8 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                 ),
 
                 // Imagen Logo
-                const SizedBox(height: 20),
                 Container(
+                  margin: const EdgeInsets.only(top: 20),
                   decoration: const BoxDecoration(),
                   child: Image.asset(
                     "assets/images/logo.png",
@@ -62,24 +60,71 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                   ),
                 ),
 
+                // Texto Iniciar Sesion
                 Container(
-                  margin: const EdgeInsets.all(60.0),
+                  margin: const EdgeInsets.only(top: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Iniciar Sesion",
+                        style: TextStyle(
+                          fontSize: 25,
+                          color: Colors.white,
+                          shadows: [
+                            Shadow(
+                              offset: const Offset(3.0, 3.0),
+                              blurRadius: 6.0,
+                              color: Colors.black.withOpacity(0.5),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Para separar el  text con el icono
+                      const SizedBox(
+                        width: 15,
+                      ),
+
+                      const Icon(
+                        Icons.login,
+                        color: Colors.white,
+                        size: 30,
+                      )
+                    ],
+                  ),
+                ),
+
+                // Formulario
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 10,
+                    left: 40,
+                    right: 40,
+                  ),
                   child: Form(
                     child: Column(
                       children: [
                         ///// Campo E-mail /////
                         TextFormField(
                           controller: emailController,
+                          cursorColor: const Color.fromARGB(199, 141, 179, 136),
                           style: const TextStyle(
                             color: Colors.white,
                           ),
                           decoration: const InputDecoration(
-                            border: UnderlineInputBorder(
+                            fillColor: Color.fromARGB(109, 0, 0, 0),
+                            filled: true,
+                            enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 255, 255,
-                                      255)), // Establecer el color deseado
+                                  color: Color.fromARGB(255, 255, 255, 255)),
                             ),
-                            labelText: 'Correo electrónico',
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color.fromARGB(255, 255, 255, 255),
+                              ),
+                            ),
+                            labelText: 'Correo electrónico:',
                             labelStyle: TextStyle(
                               fontSize: 20,
                               color: Colors.white,
@@ -88,24 +133,36 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                         ),
 
                         /////  Campo contraseña /////
-                        TextFormField(
-                          controller: passwordController,
-                          style: const TextStyle(
-                              color: Color.fromARGB(255, 255, 255,
-                                  255)), // Establece el color del texto introducido
-                          decoration: const InputDecoration(
-                            border: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromARGB(255, 255, 255, 255)),
+                        Container(
+                          margin: const EdgeInsets.only(top: 10),
+                          child: TextFormField(
+                            controller: passwordController,
+                            cursorColor:
+                                const Color.fromARGB(199, 141, 179, 136),
+                            style: const TextStyle(
+                                color: Color.fromARGB(255, 255, 255,
+                                    255)), // Establece el color del texto introducido
+                            decoration: const InputDecoration(
+                              fillColor: Color.fromARGB(109, 0, 0, 0),
+                              filled: true,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                    color: Color.fromARGB(255, 255, 255, 255)),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 255, 255, 255),
+                                ),
+                              ),
+                              labelText: 'Contraseña:',
+                              labelStyle: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors
+                                      .white), // Establece el color del texto del label
                             ),
-                            labelText: 'Contraseña',
-                            labelStyle: TextStyle(
-                                fontSize: 20,
-                                color: Colors
-                                    .white), // Establece el color del texto del label
+                            obscureText:
+                                true, // Convierte en puntos la contraseña
                           ),
-                          obscureText:
-                              true, // Convierte en puntos la contraseña
                         ),
 
                         Container(
@@ -194,31 +251,12 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                                 ),
                                 fixedSize: const Size(300, 45)),
 
-                            // Fila para la imagen y el texto del boton
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // Espacio por la izquierda para la imagen
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 5),
-                                  child: Image.asset(
-                                    "assets/images/email.png",
-                                    width: 25,
-                                    height: 25,
-                                  ),
-                                ),
-                                // Hace que el widget Text ocupe el espacio restante para luego centrarlo
-                                const Expanded(
-                                  child: Text(
-                                    "Iniciar sesion",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            child: const Text(
+                              "Iniciar sesión",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),

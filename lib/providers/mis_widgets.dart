@@ -1,8 +1,8 @@
-import 'package:andaluciapesca/src/providers/stories_provider.dart';
+import 'package:andaluciapesca/providers/stories_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'models/stories_model.dart';
+import '../models/stories_model.dart';
 
 // Funcion que diseña el contenedor donde van las Historias
 Widget contenedorHistorias() {
