@@ -308,7 +308,7 @@ class _RegistrateState extends State<Registrate> {
                                   onPressed: () {
                                     RegisterUtils(context).signUp(
                                         emailController.text.trim(),
-                                        passwordController.text.trim());
+                                        passwordController.text.trim());                                       
                                   },
 
                                   // Diseño del boton

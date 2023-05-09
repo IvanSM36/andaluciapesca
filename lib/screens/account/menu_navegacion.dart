@@ -1,8 +1,9 @@
-import 'package:andaluciapesca/screens/cuenta/clubs_competicion.dart';
-import 'package:andaluciapesca/screens/cuenta/informacion.dart';
-import 'package:andaluciapesca/screens/cuenta/perfil_usuario.dart';
-import 'package:andaluciapesca/screens/cuenta/publicaciones.dart';
 import 'package:flutter/material.dart';
+
+import 'package:andaluciapesca/screens/account/clubs_competicion.dart';
+import 'package:andaluciapesca/screens/account/informacion.dart';
+import 'package:andaluciapesca/screens/account/perfil_usuario.dart';
+import 'package:andaluciapesca/screens/account/publicaciones.dart';
 
 class MenuNav extends StatefulWidget {
   const MenuNav({super.key});

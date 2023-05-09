@@ -1,16 +1,16 @@
-import 'package:andaluciapesca/screens/bienvenida.dart';
-import 'package:andaluciapesca/screens/cuenta/clubs_competicion.dart';
-import 'package:andaluciapesca/screens/iniciar_sesion_email.dart';
-import 'package:andaluciapesca/screens/registrate.dart';
-import 'package:andaluciapesca/screens/cuenta/guardar_zona.dart';
-import 'package:andaluciapesca/screens/cuenta/informacion.dart';
-import 'package:andaluciapesca/screens/cuenta/perfil_usuario.dart';
-import 'package:andaluciapesca/screens/cuenta/subir_captura.dart';
-import 'package:andaluciapesca/screens/cuenta/menu_navegacion.dart';
-
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'services/firebase_options.dart';
+
+import 'package:andaluciapesca/screens/login/bienvenida.dart';
+import 'package:andaluciapesca/screens/login/iniciar_sesion_email.dart';
+import 'package:andaluciapesca/screens/login/registrate.dart';
+import 'package:andaluciapesca/screens/account/guardar_zona.dart';
+import 'package:andaluciapesca/screens/account/informacion.dart';
+import 'package:andaluciapesca/screens/account/perfil_usuario.dart';
+import 'package:andaluciapesca/screens/account/subir_captura.dart';
+import 'package:andaluciapesca/screens/account/menu_navegacion.dart';
+import 'package:andaluciapesca/screens/account/clubs_competicion.dart';
 
 void main() async {
   // Inicializa Firebase
