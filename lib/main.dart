@@ -14,7 +14,9 @@ import 'package:andaluciapesca/screens/account/clubs_competicion.dart';
 
 void main() async {
   // Inicializa Firebase
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); // inicializa Flutter
+
+  //Se queda en espera y inicializa Firebase.
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

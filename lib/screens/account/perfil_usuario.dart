@@ -354,6 +354,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                 Expanded(
                                   child: TabBarView(
                                     children: [
+                                      //.builder se utiliza cuando el número de elementos no es fijo
                                       GridView.builder(
                                         // physics: const NeverScrollableScrollPhysics(), // Desactiva el scroll del propio GridView
                                         shrinkWrap: true,
@@ -374,6 +375,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                               fit: BoxFit.cover);
                                         },
                                       ),
+                                      // .count se utiliza cuando el número de elementos es fijo
                                       GridView.count(
                                         crossAxisCount: 3,
                                         children: List.generate(

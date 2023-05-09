@@ -1,11 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterUtils {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  //final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   late BuildContext
       context; // Variable de instancia para almacenar el BuildContext
@@ -16,7 +18,6 @@ class RegisterUtils {
 
   // Metodo future que registra una cuenta con email y contraseña (Future )
   Future<void> signUp(String email, String password) async {
-
     bool emailVerification = false;
 
     try {
@@ -28,12 +29,12 @@ class RegisterUtils {
       );
 
       // Aquí puedes realizar acciones adicionales después de registrar al usuario
-    
+
       // Envio un mensaje de verificacion
       sendEmailVerification();
       //Lo vuelvo true para controlar con un if que se ha enviado el email y muestre un mensaje
       emailVerification = true;
-      if(emailVerification) {
+      if (emailVerification) {
         //Muestro un mensaje avisando del envio de email
         showDialog(
           context: context,
@@ -53,28 +54,26 @@ class RegisterUtils {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('La contraseña proporcionada es demasiado débil.');
-        
+
         // Capturo el error de email existente y muestro un toast indicandolo
       } else if (e.code == 'email-already-in-use') {
         Fluttertoast.showToast(
-          msg: "El Email introducido ya existe",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-        );
-      } else if (e.code == 'invalid-email'){
+            msg: "El Email introducido ya existe",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else if (e.code == 'invalid-email') {
         Fluttertoast.showToast(
-          msg: "El formato del Email introducido no es valido.",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 3,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-        );
+            msg: "El formato del Email introducido no es valido.",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0);
       }
     } catch (e) {
       // Muestro el error por consola
@@ -88,4 +87,18 @@ class RegisterUtils {
       await user.sendEmailVerification();
     }
   }
+
+  // Agrega nombre de usuario nombre y apellido a la base de datos
+  /* Future<void> addUser(String username, String name, String apellido) async {
+    try {
+      await _firestore.collection('usuarios').add({
+        'username': username,
+        'nombre': name,
+        'apellido': apellido,
+      });
+      print('Usuario agregado con éxito');
+    } catch (e) {
+      print('Error al agregar usuario: $e');
+    }
+  }*/
 }

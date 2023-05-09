@@ -30,6 +30,25 @@ class _Informacion extends State<Informacion> {
         ),
         body: Container(
           color: const Color.fromARGB(255, 131, 160, 126),
+          child: GridView.count(
+            shrinkWrap: false,
+            crossAxisCount: 2, // Número de columnas
+            mainAxisSpacing: 0, // Espacio vertical entre elementos
+            crossAxisSpacing: 0, // Espacio horizontal entre elementos
+            children: List.generate(6, (index) {
+              // Generar una lista de elementos
+              return Container(
+                margin: const EdgeInsets.all(7),
+                color: Colors.blue[100],
+                child: Center(
+                  child: Text(
+                    "Elemento $index",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              );
+            }),
+          ),
         ),
       ),
     );
