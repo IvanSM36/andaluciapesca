@@ -29,8 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Andalucia Pesca',
-      debugShowCheckedModeBanner:
-          false, // Oculta la etiqueta Debug del Appbar feed_rounded
+      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,

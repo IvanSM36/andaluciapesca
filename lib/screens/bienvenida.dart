@@ -76,29 +76,31 @@ class Bienvenida extends StatelessWidget {
                   child: ElevatedButton(
                     // Evento para el boton
                     onPressed: () {
-                      LoginGoogleUtils().signInWithGoogle().then((user) {
-                        // Comprobamos si se a iniciado sesion o no
-                        if (user != null) {
-                          Navigator.pushNamed(context,
-                              "/menuNav"); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
-                        } else {
-                          // Si falla nos mostrara una ventana de alerta con el mensajer de error
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Error de inicio de sesión'),
-                              content: const Text(
-                                  'No se pudo iniciar sesión con Google. Por favor, intenta nuevamente.'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      });
+                      LoginGoogleUtils().signInWithGoogle().then(
+                        (user) {
+                          // Comprobamos si se a iniciado sesion
+                          if (user != null) {
+                            Navigator.pushNamed(context,
+                                "/menuNav"); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
+                          } else {
+                            // Si falla nos mostrara una ventana de alerta con el mensajer de error
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Error de inicio de sesión'),
+                                content: const Text(
+                                    'No se pudo iniciar sesión con Google. Por favor, intenta nuevamente.'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
+                      );
                     },
 
                     //Diseño del boton

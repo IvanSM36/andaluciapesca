@@ -2,6 +2,7 @@
 
 import 'package:andaluciapesca/screens/bienvenida.dart';
 import 'package:andaluciapesca/utils/LoginGoogleUtils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class PerfilUsuario extends StatefulWidget {
@@ -64,6 +65,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                     child: const Text('Cerrar sesión'),
                     onTap: () async {
                       await LoginGoogleUtils().signOutGoogle();
+                      await FirebaseAuth.instance.signOut();
 
                       Navigator.of(context, rootNavigator: true)
                           .pushAndRemoveUntil(

@@ -33,6 +33,7 @@ dependencies:
   google_sign_in: ^6.1.0
   google_sign_in_web: ^0.12.0
   image_picker: ^0.8.4+2
+  fluttertoast: ^8.0.7
   
   flutter:
     sdk: flutter

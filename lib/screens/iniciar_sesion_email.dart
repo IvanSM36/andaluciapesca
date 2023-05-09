@@ -1,4 +1,4 @@
-import 'package:andaluciapesca/screens/cuenta/menu_navegacion.dart';
+import 'package:andaluciapesca/utils/LoginEmailUtils.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -129,6 +129,10 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                               fontSize: 20,
                               color: Colors.white,
                             ),
+                            suffixIcon: Icon(
+                              Icons.email,
+                              color: Color.fromARGB(199, 141, 179, 136),
+                            ),
                           ),
                         ),
 
@@ -154,11 +158,15 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                                   color: Color.fromARGB(255, 255, 255, 255),
                                 ),
                               ),
+
                               labelText: 'Contraseña:',
-                              labelStyle: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors
-                                      .white), // Establece el color del texto del label
+                              labelStyle:
+                                  TextStyle(fontSize: 20, color: Colors.white),
+                              // Agrega un icono a la derecha
+                              suffixIcon: Icon(
+                                Icons.lock,
+                                color: Color.fromARGB(199, 141, 179, 136),
+                              ), // Establece el color del texto del label
                             ),
                             obscureText:
                                 true, // Convierte en puntos la contraseña
@@ -182,61 +190,9 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                           child: ElevatedButton(
                             // Evento del boton
                             onPressed: () async {
-                              try {
-                                final credential = await FirebaseAuth.instance
-                                    .signInWithEmailAndPassword(
-                                        email: emailController.text,
-                                        password: passwordController.text);
-
-                                FirebaseAuth.instance
-                                    .authStateChanges()
-                                    .listen((User? user) {
-                                  if (user != null) {
-                                    // El usuario inició sesión con éxito
-                                    Navigator.pushNamed(context, '/menuNav');
-                                  }
-                                });
-                              } on FirebaseAuthException catch (e) {
-                                if (e.code == 'user-not-found') {
-                                  // El inicio de sesión falló
-                                  // ignore: use_build_context_synchronously
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text(
-                                          'Error de inicio de sesión'),
-                                      content: const Text(
-                                          'No existe una cuenta con ese Email.'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                } else if (e.code == 'wrong-password') {
-                                  // El inicio de sesión falló
-                                  // ignore: use_build_context_synchronously
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      title: const Text(
-                                          'Error de inicio de sesión'),
-                                      content:
-                                          const Text('Contraseña incorrecta'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(context),
-                                          child: const Text('OK'),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              }
+                              LoginEmailUtils(context).signInWithEmail(
+                                  emailController.text.trim(),
+                                  passwordController.text.trim());
                             },
 
                             // Diseño del boton
@@ -249,7 +205,7 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                                   borderRadius: BorderRadius.circular(
                                       20), // Hacer los bordes más redondos con un radio de 20 píxeles
                                 ),
-                                fixedSize: const Size(300, 45)),
+                                fixedSize: const Size(200, 45)),
 
                             child: const Text(
                               "Iniciar sesión",
