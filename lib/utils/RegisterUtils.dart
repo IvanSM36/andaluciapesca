@@ -28,14 +28,14 @@ class RegisterUtils {
         password: password,
       );
 
-      // Aquí puedes realizar acciones adicionales después de registrar al usuario
-
       // Envio un mensaje de verificacion
       sendEmailVerification();
+
       //Lo vuelvo true para controlar con un if que se ha enviado el email y muestre un mensaje
       emailVerification = true;
+
+      // Si se ha enviado el correo, muestro un mensaje avisando del envio de email
       if (emailVerification) {
-        //Muestro un mensaje avisando del envio de email
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
@@ -55,7 +55,7 @@ class RegisterUtils {
       if (e.code == 'weak-password') {
         print('La contraseña proporcionada es demasiado débil.');
 
-        // Capturo el error de email existente y muestro un toast indicandolo
+        // Capturo el error de email existente y muestro un toast
       } else if (e.code == 'email-already-in-use') {
         Fluttertoast.showToast(
             msg: "El Email introducido ya existe",
@@ -65,6 +65,8 @@ class RegisterUtils {
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
+
+        // Capturo el error de formato de email invalido y muestro un toast
       } else if (e.code == 'invalid-email') {
         Fluttertoast.showToast(
             msg: "El formato del Email introducido no es valido.",
@@ -81,6 +83,7 @@ class RegisterUtils {
     }
   }
 
+  // Metodo que envia mensaje de Verificacion al correo introducido para registrarse
   Future<void> sendEmailVerification() async {
     User? user = _auth.currentUser;
     if (user != null && !user.emailVerified) {
