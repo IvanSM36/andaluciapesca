@@ -1,3 +1,8 @@
+import 'package:andaluciapesca/screens/account/especies_permitidas.dart';
+import 'package:andaluciapesca/screens/account/especies_prohibidas.dart';
+import 'package:andaluciapesca/screens/account/normativa.dart';
+import 'package:andaluciapesca/screens/account/zonas_permitidas.dart';
+import 'package:andaluciapesca/screens/account/zonas_restringidas.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'services/firebase_options.dart';
@@ -11,6 +16,7 @@ import 'package:andaluciapesca/screens/account/perfil_usuario.dart';
 import 'package:andaluciapesca/screens/account/subir_captura.dart';
 import 'package:andaluciapesca/screens/account/menu_navegacion.dart';
 import 'package:andaluciapesca/screens/account/clubs_competicion.dart';
+import 'package:andaluciapesca/screens/account/noticias.dart';
 
 void main() async {
   // Inicializa Firebase
@@ -47,6 +53,12 @@ class MyApp extends StatelessWidget {
         '/perfilUsuario': (context) => const PerfilUsuario(),
         '/subirCaptura': (context) => const SubirCaptura(),
         '/guardarZona': (context) => const GuardarZona(),
+        '/noticias': (context) => const Noticia(),
+        '/normativa': (context) => const Normativa(),
+        '/zonasRestringidas': (context) => const ZonasRestringidas(),
+        '/zonasPermitidas': (context) => const ZonasPermitidas(),
+        '/especiesProhibidas': (context) => const EspeciesProhibidas(),
+        '/especiesPermitidas': (context) => const EspeciesPermitidas(),
       },
     );
   }

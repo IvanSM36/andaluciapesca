@@ -57,7 +57,7 @@ class _ClubsCompeticion extends State<ClubsCompeticion> {
                     tabs: [
                       Tab(
                         child: Text(
-                          "Zonas",
+                          "Clubs",
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
@@ -74,7 +74,7 @@ class _ClubsCompeticion extends State<ClubsCompeticion> {
                       ),
                       Tab(
                         child: Text(
-                          "Equipo",
+                          "Competiciones",
                           style: TextStyle(
                             fontSize: 20,
                             color: Colors.white,
