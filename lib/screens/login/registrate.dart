@@ -1,3 +1,4 @@
+import 'package:andaluciapesca/utils/firebase_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:andaluciapesca/utils/RegisterUtils.dart';
@@ -309,6 +310,11 @@ class _RegistrateState extends State<Registrate> {
                                     RegisterUtils(context).signUp(
                                         emailController.text.trim(),
                                         passwordController.text.trim());
+
+                                    createUser(
+                                        userController.text,
+                                        nameController.text,
+                                        apellidoController.text);
                                   },
 
                                   // Diseño del boton
