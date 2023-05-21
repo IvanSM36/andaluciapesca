@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:andaluciapesca/utils/LoginGoogleUtils.dart';
+import 'package:andaluciapesca/utils/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -75,13 +76,14 @@ class Bienvenida extends StatelessWidget {
                   // Boton
                   child: ElevatedButton(
                     // Evento para el boton
-                    onPressed: () {
-                      LoginGoogleUtils().signInWithGoogle().then(
+                    onPressed: () async {
+                      await LoginGoogleUtils().signInWithGoogle().then(
                         (user) {
                           // Comprobamos si se a iniciado sesion
                           if (user != null) {
-                            Navigator.pushNamed(context,
-                                "/menuNav"); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
+                            // Navigator.pushNamed(context,
+                            //     "/menuNav"); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
+                            createUserGoogle();
                           } else {
                             // Si falla nos mostrara una ventana de alerta con el mensajer de error
                             showDialog(

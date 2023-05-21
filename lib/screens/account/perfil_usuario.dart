@@ -2,6 +2,7 @@
 
 import 'package:andaluciapesca/screens/login/bienvenida.dart';
 import 'package:andaluciapesca/utils/LoginGoogleUtils.dart';
+import 'package:andaluciapesca/utils/firebase_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -63,19 +64,19 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   ),
                   PopupMenuItem(
                     child: const Text('Cerrar sesión'),
-                    onTap: () async {
-                      await LoginGoogleUtils().signOutGoogle();
-                      await FirebaseAuth.instance.signOut();
+                    onTap: () {
+                      LoginGoogleUtils().signOutGoogle();
+                      FirebaseAuth.instance.signOut();
 
-                      Navigator.of(context, rootNavigator: true)
-                          .pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) {
-                            return Bienvenida();
-                          },
-                        ),
-                        (_) => false,
-                      );
+                      // Navigator.of(context, rootNavigator: true)
+                      //     .pushAndRemoveUntil(
+                      //   MaterialPageRoute(
+                      //     builder: (BuildContext context) {
+                      //       return Bienvenida();
+                      //     },
+                      //   ),
+                      //   (_) => false,
+                      // );
                     },
                   ),
                   const PopupMenuItem(
@@ -176,11 +177,11 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                                 ),
                                               ],
                                             ),
-                                            child: const Center(
+                                            child: Center(
                                               child: CircleAvatar(
                                                 radius: 80,
                                                 backgroundImage: NetworkImage(
-                                                    "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/980.jpg"),
+                                                    "${readUser()?.photoURL}"),
                                               ),
                                             ),
                                           ),
@@ -202,7 +203,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        "@IvanSM",
+                                        "${readUser()?.displayName}",
                                         style: TextStyle(
                                           fontSize: 32,
                                           color: Colors.white,

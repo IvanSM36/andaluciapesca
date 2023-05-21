@@ -3,6 +3,7 @@ import 'package:andaluciapesca/screens/account/especies_prohibidas.dart';
 import 'package:andaluciapesca/screens/account/normativa.dart';
 import 'package:andaluciapesca/screens/account/zonas_permitidas.dart';
 import 'package:andaluciapesca/screens/account/zonas_restringidas.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'services/firebase_options.dart';
@@ -34,32 +35,71 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Andalucia Pesca',
-      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Bienvenida(),
-      routes: {
-        '/bienvenida': (context) => Bienvenida(),
-        '/entrarEmail': (context) => const IniciarSesionEmail(),
-        '/registrate': (context) => const Registrate(),
-        '/menuNav': (context) => const MenuNav(),
-        '/clubCompeticion': (context) => const ClubsCompeticion(),
-        '/informacion': (context) => const Informacion(),
-        '/perfilUsuario': (context) => const PerfilUsuario(),
-        '/subirCaptura': (context) => const SubirCaptura(),
-        '/guardarZona': (context) => const GuardarZona(),
-        '/noticias': (context) => const Noticia(),
-        '/normativa': (context) => const Normativa(),
-        '/zonasRestringidas': (context) => const ZonasRestringidas(),
-        '/zonasPermitidas': (context) => const ZonasPermitidas(),
-        '/especiesProhibidas': (context) => const EspeciesProhibidas(),
-        '/especiesPermitidas': (context) => const EspeciesPermitidas(),
-      },
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        home: StreamBuilder<User?>(
+          stream: FirebaseAuth.instance.authStateChanges(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return const MenuNav();
+            } else {
+              return Bienvenida();
+            }
+          },
+        ),
+
+        title: 'Andalucia Pesca',
+        debugShowCheckedModeBanner:
+            false, // Oculta la etiqueta Debug del Appbar
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        routes: {
+          '/bienvenida': (context) => Bienvenida(),
+          '/entrarEmail': (context) => const IniciarSesionEmail(),
+          '/registrate': (context) => const Registrate(),
+          '/menuNav': (context) => const MenuNav(),
+          '/clubCompeticion': (context) => const ClubsCompeticion(),
+          '/informacion': (context) => const Informacion(),
+          '/perfilUsuario': (context) => const PerfilUsuario(),
+          '/subirCaptura': (context) => const SubirCaptura(),
+          '/guardarZona': (context) => const GuardarZona(),
+          '/noticias': (context) => const Noticia(),
+          '/normativa': (context) => const Normativa(),
+          '/zonasRestringidas': (context) => const ZonasRestringidas(),
+          '/zonasPermitidas': (context) => const ZonasPermitidas(),
+          '/especiesProhibidas': (context) => const EspeciesProhibidas(),
+          '/especiesPermitidas': (context) => const EspeciesPermitidas(),
+        },
+      );
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     title: 'Andalucia Pesca',
+  //     debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
+  //     theme: ThemeData(
+  //       primarySwatch: Colors.blue,
+  //       visualDensity: VisualDensity.adaptivePlatformDensity,
+  //     ),
+  //     home: Bienvenida(),
+  //     routes: {
+  //       '/bienvenida': (context) => Bienvenida(),
+  //       '/entrarEmail': (context) => const IniciarSesionEmail(),
+  //       '/registrate': (context) => const Registrate(),
+  //       '/menuNav': (context) => const MenuNav(),
+  //       '/clubCompeticion': (context) => const ClubsCompeticion(),
+  //       '/informacion': (context) => const Informacion(),
+  //       '/perfilUsuario': (context) => const PerfilUsuario(),
+  //       '/subirCaptura': (context) => const SubirCaptura(),
+  //       '/guardarZona': (context) => const GuardarZona(),
+  //       '/noticias': (context) => const Noticia(),
+  //       '/normativa': (context) => const Normativa(),
+  //       '/zonasRestringidas': (context) => const ZonasRestringidas(),
+  //       '/zonasPermitidas': (context) => const ZonasPermitidas(),
+  //       '/especiesProhibidas': (context) => const EspeciesProhibidas(),
+  //       '/especiesPermitidas': (context) => const EspeciesPermitidas(),
+  //     },
+  //   );
+  // }
 }
