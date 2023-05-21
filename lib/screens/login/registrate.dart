@@ -2,6 +2,7 @@ import 'package:andaluciapesca/utils/firebase_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:andaluciapesca/utils/RegisterUtils.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Registrate extends StatefulWidget {
   const Registrate({super.key});
@@ -306,7 +307,7 @@ class _RegistrateState extends State<Registrate> {
                                 // Boton
                                 child: ElevatedButton(
                                   // Evento del boton
-                                  onPressed: () {
+                                  onPressed: () async {
                                     RegisterUtils(context).signUp(
                                         emailController.text.trim(),
                                         passwordController.text.trim());
