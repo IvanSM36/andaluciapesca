@@ -308,14 +308,21 @@ class _RegistrateState extends State<Registrate> {
                                 child: ElevatedButton(
                                   // Evento del boton
                                   onPressed: () async {
-                                    RegisterUtils(context).signUp(
+                                    await RegisterUtils(context).signUp(
                                         emailController.text.trim(),
                                         passwordController.text.trim());
 
-                                    createUser(
+                                    agregarDatosUsuario(
+                                        emailController.text,
                                         userController.text,
                                         nameController.text,
-                                        apellidoController.text);
+                                        apellidoController.text,
+                                        "",
+                                        "");
+                                    // createUser(
+                                    //     userController.text,
+                                    //     nameController.text,
+                                    //     apellidoController.text);
                                   },
 
                                   // Diseño del boton

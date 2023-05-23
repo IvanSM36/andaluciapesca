@@ -81,8 +81,8 @@ class Bienvenida extends StatelessWidget {
                         (user) {
                           // Comprobamos si se a iniciado sesion
                           if (user != null) {
-                            // Navigator.pushNamed(context,
-                            //     "/menuNav"); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
+                            Navigator.pushNamed(context,
+                                "/menuNav"); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
                             createUserGoogle();
                           } else {
                             // Si falla nos mostrara una ventana de alerta con el mensajer de error

@@ -14,7 +14,7 @@ class _Informacion extends State<Informacion> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Andalucia app',
-      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
+      // debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
       home: Scaffold(
         appBar: AppBar(
           leading: IconButton(

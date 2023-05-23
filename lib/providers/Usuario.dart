@@ -20,6 +20,7 @@ class Usuario {
     required this.telefono,
   });
 
+  // Metodo que crea un Usuario apartir de un DocumentSnapshot que contiene los datos de la base de datos
   factory Usuario.fromFirestore(
     DocumentSnapshot<Map<String, dynamic>> snapshot,
     SnapshotOptions? options,
@@ -35,6 +36,7 @@ class Usuario {
     );
   }
 
+  //Metodo para mapear los datos del usuario
   Map<String, dynamic> toFirestore() {
     return {
       if (email != null) "email": email,
@@ -46,69 +48,3 @@ class Usuario {
     };
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // // Getters and Setters
-  // String get getEmail {
-  //   return email;
-  // }
-
-  // set setEmail(String valor) {
-  //   email = valor;
-  // }
-
-  // String get getNombreUsuario {
-  //   return nombreUsuario;
-  // }
-
-  // set setNombreUsuario(String valor) {
-  //   nombreUsuario = valor;
-  // }
-
-  // String get getNombre {
-  //   return nombre;
-  // }
-
-  // set setNombre(String valor) {
-  //   nombre = valor;
-  // }
-
-  // String get getApellidos {
-  //   return apellidos;
-  // }
-
-  // set setApellidos(String valor) {
-  //   apellidos = valor;
-  // }
-
-  // String get getFotoPerfil {
-  //   return fotoPerfil;
-  // }
-
-  // set setFotoPerfil(String valor) {
-  //   fotoPerfil = valor;
-  // }
-

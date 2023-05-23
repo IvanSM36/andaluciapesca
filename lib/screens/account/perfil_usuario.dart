@@ -1,10 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:andaluciapesca/providers/Usuario.dart';
 import 'package:andaluciapesca/screens/login/bienvenida.dart';
 import 'package:andaluciapesca/utils/LoginGoogleUtils.dart';
 import 'package:andaluciapesca/utils/firebase_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PerfilUsuario extends StatefulWidget {
   const PerfilUsuario({super.key});
@@ -38,10 +41,64 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
     'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/456.jpg',
   ];
 
+  String email = "";
+  String nombreUsuario = "";
+  String nombre = "";
+  String apellidos = "";
+  String telefono = "";
+  String fotoPerfil = "";
+
+  @override
+  void initState() {
+    super.initState();
+    cargarDatosShared();
+  }
+
+  // Metodo para obtener los datos de un usuario
+  Future getUsuario() async {
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await db.collection('usuarios').doc(user?.email).get();
+
+    final Usuario usuario = Usuario.fromFirestore(snapshot, null);
+    email = usuario.email;
+    nombreUsuario = usuario.nombreUsuario;
+    nombre = usuario.nombre;
+    apellidos = usuario.apellidos;
+    telefono = usuario.telefono;
+    fotoPerfil = usuario.fotoPerfil;
+
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setString("email", email);
+      prefs.setString("nombreUsuario", nombreUsuario);
+      prefs.setString("nombre", nombre);
+      prefs.setString("apellidos", apellidos);
+      prefs.setString("telefono", telefono);
+      prefs.setString("fotoPerfil", fotoPerfil);
+    });
+  }
+
+  cargarDatosShared() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    setState(() {
+      email = prefs.getString("email")!;
+      nombreUsuario = prefs.getString("nombreUsuario")!;
+      nombre = prefs.getString("nombre")!;
+      apellidos = prefs.getString("apellidos")!;
+      fotoPerfil = prefs.getString("fotoPerfil")!;
+    });
+
+    print(email);
+  }
+
+  // SharedPreferences preferences =
+  //                         await SharedPreferences.getInstance();
+  //                     await preferences.clear();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      //debugShowCheckedModeBanner: false,
       home: Scaffold(
         ///// APPBAR /////
         appBar: AppBar(
@@ -64,19 +121,23 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   ),
                   PopupMenuItem(
                     child: const Text('Cerrar sesión'),
-                    onTap: () {
+                    onTap: () async {
                       LoginGoogleUtils().signOutGoogle();
                       FirebaseAuth.instance.signOut();
 
-                      // Navigator.of(context, rootNavigator: true)
-                      //     .pushAndRemoveUntil(
-                      //   MaterialPageRoute(
-                      //     builder: (BuildContext context) {
-                      //       return Bienvenida();
-                      //     },
-                      //   ),
-                      //   (_) => false,
-                      // );
+                      SharedPreferences preferences =
+                          await SharedPreferences.getInstance();
+                      await preferences.clear();
+
+                      Navigator.of(context, rootNavigator: true)
+                          .pushAndRemoveUntil(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return Bienvenida();
+                          },
+                        ),
+                        (_) => false,
+                      );
                     },
                   ),
                   const PopupMenuItem(
@@ -180,8 +241,8 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                             child: Center(
                                               child: CircleAvatar(
                                                 radius: 80,
-                                                backgroundImage: NetworkImage(
-                                                    "${readUser()?.photoURL}"),
+                                                backgroundImage:
+                                                    NetworkImage(""),
                                               ),
                                             ),
                                           ),
@@ -203,7 +264,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        "${readUser()?.displayName}",
+                                        nombreUsuario,
                                         style: TextStyle(
                                           fontSize: 32,
                                           color: Colors.white,

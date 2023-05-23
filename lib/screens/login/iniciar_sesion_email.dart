@@ -189,7 +189,7 @@ class _IniciarSesionEmailState extends State<IniciarSesionEmail> {
                           // Boton
                           child: ElevatedButton(
                             // Evento del boton
-                            onPressed: () async {
+                            onPressed: () {
                               LoginEmailUtils(context).signInWithEmail(
                                   emailController.text.trim(),
                                   passwordController.text.trim());
