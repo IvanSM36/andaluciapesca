@@ -80,7 +80,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
 
   cargarDatosShared() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
+//prueba
     setState(() {
       email = prefs.getString("email")!;
       nombreUsuario = prefs.getString("nombreUsuario")!;
