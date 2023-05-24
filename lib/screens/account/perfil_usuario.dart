@@ -48,14 +48,8 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
   String telefono = "";
   String fotoPerfil = "";
 
-  @override
-  void initState() {
-    super.initState();
-    cargarDatosShared();
-  }
-
   // Metodo para obtener los datos de un usuario
-  Future getUsuario() async {
+  Future<void> getUsuario() async {
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await db.collection('usuarios').doc(user?.email).get();
 
@@ -68,33 +62,34 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
     fotoPerfil = usuario.fotoPerfil;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      prefs.setString("email", email);
-      prefs.setString("nombreUsuario", nombreUsuario);
-      prefs.setString("nombre", nombre);
-      prefs.setString("apellidos", apellidos);
-      prefs.setString("telefono", telefono);
-      prefs.setString("fotoPerfil", fotoPerfil);
-    });
+    await prefs.setString("email", email);
+    await prefs.setString("nombreUsuario", nombreUsuario);
+    await prefs.setString("nombre", nombre);
+    await prefs.setString("apellidos", apellidos);
+    await prefs.setString("telefono", telefono);
+    await prefs.setString("fotoPerfil", fotoPerfil);
   }
 
-  cargarDatosShared() async {
+  @override
+  void initState() {
+    super.initState();
+    getUsuario();
+    cargarDatosShared();
+  }
+
+  Future<String?> cargarDatosShared() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-//prueba
-    setState(() {
-      email = prefs.getString("email")!;
-      nombreUsuario = prefs.getString("nombreUsuario")!;
-      nombre = prefs.getString("nombre")!;
-      apellidos = prefs.getString("apellidos")!;
-      fotoPerfil = prefs.getString("fotoPerfil")!;
-    });
 
-    print(email);
+    setState(() {
+      email = prefs.getString("email") ??
+          ""; // Valor predeterminado: cadena vacía si es nulo
+      nombreUsuario = prefs.getString("nombreUsuario") ?? "";
+      nombre = prefs.getString("nombre") ?? "";
+      apellidos = prefs.getString("apellidos") ?? "";
+      fotoPerfil = prefs.getString("fotoPerfil") ?? "";
+    });
   }
 
-  // SharedPreferences preferences =
-  //                         await SharedPreferences.getInstance();
-  //                     await preferences.clear();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -125,9 +120,10 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                       LoginGoogleUtils().signOutGoogle();
                       FirebaseAuth.instance.signOut();
 
-                      SharedPreferences preferences =
-                          await SharedPreferences.getInstance();
-                      await preferences.clear();
+                      final prefs = await SharedPreferences.getInstance();
+                      await prefs.clear();
+
+                      print(nombreUsuario);
 
                       Navigator.of(context, rootNavigator: true)
                           .pushAndRemoveUntil(
@@ -242,7 +238,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                               child: CircleAvatar(
                                                 radius: 80,
                                                 backgroundImage:
-                                                    NetworkImage(""),
+                                                    NetworkImage(fotoPerfil),
                                               ),
                                             ),
                                           ),

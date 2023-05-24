@@ -78,14 +78,22 @@ class Bienvenida extends StatelessWidget {
                     // Evento para el boton
                     onPressed: () async {
                       await LoginGoogleUtils().signInWithGoogle().then(
-                        (user) {
-                          // Comprobamos si se a iniciado sesion
+                        (user) async {
+                          // Comprobamos si se ha iniciado sesión
                           if (user != null) {
-                            Navigator.pushNamed(context,
-                                "/menuNav"); // Si se a iniciado sesion correctamente nos redirige a la pantalla menunav
-                            createUserGoogle();
+                            // Verificar si el usuario de Google ya existe
+                            bool userExists =
+                                await LoginGoogleUtils().checkUserExists(user);
+
+                            if (userExists) {
+                              // Si existe me redirige a la pantalla menu
+                              Navigator.pushNamed(context, "/menuNav");
+                            } else {
+                              // Si no existe, navegamos a la pantalla menunav y creamos el usuario
+                              createUserGoogle();
+                            }
                           } else {
-                            // Si falla nos mostrara una ventana de alerta con el mensajer de error
+                            // Si falla, mostramos una ventana de alerta con el mensaje de error
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(

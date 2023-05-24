@@ -56,7 +56,24 @@ class LoginGoogleUtils {
 
     return null;
   }
-  /////////////////////////////////////////////////////////////////////////////////////
+
+  Future<bool> checkUserExists(User user) async {
+    try {
+      // Verificar si existe un usuario con el mismo UID que el usuario de Google
+      final currentUser = await _auth.currentUser;
+      if (currentUser != null && currentUser.uid == user.uid) {
+        // El usuario ya existe
+        return true;
+      } else {
+        // El usuario no existe
+        return false;
+      }
+    } catch (e) {
+      print('Error al verificar la existencia del usuario: $e');
+      // En caso de error, devuelve false por defecto
+      return false;
+    }
+  }
 
   // Cerrar sesion de google
   Future<void> signOutGoogle() async {

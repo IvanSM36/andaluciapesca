@@ -13,7 +13,7 @@ User? user = auth.currentUser;
 Future<void> createUserGoogle() async {
   await db.collection("usuarios").doc(user?.email).set({
     "email": user?.email,
-    "nombreUsuario": "",
+    "nombreUsuario": null ?? user?.displayName, // Si es null muestre el nombre.
     "apellidos": "",
     "nombre": user?.displayName,
     "telefono": user?.phoneNumber ?? "",
