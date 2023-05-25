@@ -40,54 +40,66 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
     'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/453.jpg',
     'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/456.jpg',
   ];
-
+  
   String email = "";
-  String nombreUsuario = "";
-  String nombre = "";
-  String apellidos = "";
-  String telefono = "";
-  String fotoPerfil = "";
+  late String nombreUsuario = "";
+  late String nombre = "";
+  late String apellidos = "";
+  late String telefono = "";
+  late String fotoPerfil = "";
 
   // Metodo para obtener los datos de un usuario
   Future<void> getUsuario() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await db.collection('usuarios').doc(user?.email).get();
 
     final Usuario usuario = Usuario.fromFirestore(snapshot, null);
+    
     email = usuario.email;
     nombreUsuario = usuario.nombreUsuario;
     nombre = usuario.nombre;
     apellidos = usuario.apellidos;
     telefono = usuario.telefono;
     fotoPerfil = usuario.fotoPerfil;
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("email", email);
-    await prefs.setString("nombreUsuario", nombreUsuario);
-    await prefs.setString("nombre", nombre);
-    await prefs.setString("apellidos", apellidos);
-    await prefs.setString("telefono", telefono);
-    await prefs.setString("fotoPerfil", fotoPerfil);
+    
+    setState(() {
+      prefs.setString("email", email);
+      prefs.setString("nombreUsuario", nombreUsuario);
+      prefs.setString("nombre", nombre);
+      prefs.setString("apellidos", apellidos);
+      prefs.setString("telefono", telefono);
+      prefs.setString("fotoPerfil", fotoPerfil);
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    getUsuario();
+   getUsuario();
     cargarDatosShared();
+   
   }
 
-  Future<String?> cargarDatosShared() async {
+  cargarDatosShared() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
     setState(() {
-      email = prefs.getString("email") ??
-          ""; // Valor predeterminado: cadena vacía si es nulo
-      nombreUsuario = prefs.getString("nombreUsuario") ?? "";
-      nombre = prefs.getString("nombre") ?? "";
-      apellidos = prefs.getString("apellidos") ?? "";
-      fotoPerfil = prefs.getString("fotoPerfil") ?? "";
+       email = prefs.getString("email") ?? ""; 
+    nombreUsuario = prefs.getString("nombreUsuario") ?? "";
+    nombre = prefs.getString("nombre") ?? "";
+    apellidos = prefs.getString("apellidos") ?? "";
+    telefono = prefs.getString("telefono") ?? "";
+    fotoPerfil = prefs.getString("fotoPerfil") ?? "";
     });
+
+    print(prefs.getString("email"));
+    print(prefs.getString("nombreUsuario"));
+    print(prefs.getString("nombre"));
+    print(prefs.getString("apellidos"));
+    print(prefs.getString("telefono"));
+    
   }
 
   @override
@@ -117,14 +129,16 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   PopupMenuItem(
                     child: const Text('Cerrar sesión'),
                     onTap: () async {
-                      LoginGoogleUtils().signOutGoogle();
-                      FirebaseAuth.instance.signOut();
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      print(prefs.getString(nombreUsuario));
 
-                      final prefs = await SharedPreferences.getInstance();
                       await prefs.clear();
 
-                      print(nombreUsuario);
+                      print(prefs.getString(nombreUsuario));
 
+                      LoginGoogleUtils().signOutGoogle();
+                      FirebaseAuth.instance.signOut();
+                                        
                       Navigator.of(context, rootNavigator: true)
                           .pushAndRemoveUntil(
                         MaterialPageRoute(
