@@ -40,30 +40,30 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
     'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/453.jpg',
     'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/456.jpg',
   ];
-  
+
   String email = "";
-  late String nombreUsuario = "";
-  late String nombre = "";
-  late String apellidos = "";
-  late String telefono = "";
-  late String fotoPerfil = "";
+  String nombreUsuario = "";
+  String nombre = "";
+  String apellidos = "";
+  String telefono = "";
+  String fotoPerfil = "";
 
   // Metodo para obtener los datos de un usuario
   Future<void> getUsuario() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await db.collection('usuarios').doc(user?.email).get();
 
     final Usuario usuario = Usuario.fromFirestore(snapshot, null);
-    
+
     email = usuario.email;
     nombreUsuario = usuario.nombreUsuario;
     nombre = usuario.nombre;
     apellidos = usuario.apellidos;
     telefono = usuario.telefono;
     fotoPerfil = usuario.fotoPerfil;
-    
+
+    final prefs = await SharedPreferences.getInstance();
+
     setState(() {
       prefs.setString("email", email);
       prefs.setString("nombreUsuario", nombreUsuario);
@@ -71,36 +71,47 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
       prefs.setString("apellidos", apellidos);
       prefs.setString("telefono", telefono);
       prefs.setString("fotoPerfil", fotoPerfil);
+
+      email = prefs.getString("email") ?? "";
+      nombreUsuario = prefs.getString("nombreUsuario") ?? "";
+      nombre = prefs.getString("nombre") ?? "";
+      apellidos = prefs.getString("apellidos") ?? "";
+      telefono = prefs.getString("telefono") ?? "";
+      fotoPerfil = prefs.getString("fotoPerfil") ?? "";
     });
+
+    // print(prefs.getString("email"));
+    // print(prefs.getString("nombreUsuario"));
+    // print(prefs.getString("nombre"));
+    // prefs.remove(email);
+    // print(prefs.getString(email));
   }
 
   @override
   void initState() {
     super.initState();
-   getUsuario();
-    cargarDatosShared();
-   
+    getUsuario();
+    //cargarDatosShared();
   }
 
-  cargarDatosShared() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+  // cargarDatosShared() async {
+  //   prefs = await SharedPreferences.getInstance();
 
-    setState(() {
-       email = prefs.getString("email") ?? ""; 
-    nombreUsuario = prefs.getString("nombreUsuario") ?? "";
-    nombre = prefs.getString("nombre") ?? "";
-    apellidos = prefs.getString("apellidos") ?? "";
-    telefono = prefs.getString("telefono") ?? "";
-    fotoPerfil = prefs.getString("fotoPerfil") ?? "";
-    });
+  //   setState(() {
+  //     email = prefs.getString("email") ?? "";
+  //     nombreUsuario = prefs.getString("nombreUsuario") ?? "";
+  //     nombre = prefs.getString("nombre") ?? "";
+  //     apellidos = prefs.getString("apellidos") ?? "";
+  //     telefono = prefs.getString("telefono") ?? "";
+  //     fotoPerfil = prefs.getString("fotoPerfil") ?? "";
+  //   });
 
-    print(prefs.getString("email"));
-    print(prefs.getString("nombreUsuario"));
-    print(prefs.getString("nombre"));
-    print(prefs.getString("apellidos"));
-    print(prefs.getString("telefono"));
-    
-  }
+  //   print(prefs.getString());
+  //   print(prefs.getString("nombreUsuario"));
+  //   print(prefs.getString("nombre"));
+  //   prefs.remove(email);
+  //   print(prefs.getString("email"));
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -129,16 +140,24 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   PopupMenuItem(
                     child: const Text('Cerrar sesión'),
                     onTap: () async {
-                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                      print(prefs.getString(nombreUsuario));
+                      LoginGoogleUtils().signOutGoogle();
+                      FirebaseAuth.instance.signOut();
+
+                      final prefs = await SharedPreferences.getInstance();
+
+                      print(email);
 
                       await prefs.clear();
 
-                      print(prefs.getString(nombreUsuario));
+                      email = prefs.getString("email") ?? "";
+                      nombreUsuario = prefs.getString("nombreUsuario") ?? "";
+                      nombre = prefs.getString("nombre") ?? "";
+                      apellidos = prefs.getString("apellidos") ?? "";
+                      telefono = prefs.getString("telefono") ?? "";
+                      fotoPerfil = prefs.getString("fotoPerfil") ?? "";
 
-                      LoginGoogleUtils().signOutGoogle();
-                      FirebaseAuth.instance.signOut();
-                                        
+                      print(email);
+
                       Navigator.of(context, rootNavigator: true)
                           .pushAndRemoveUntil(
                         MaterialPageRoute(
@@ -248,6 +267,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                                 ),
                                               ],
                                             ),
+                                            ////////// FOTO PREFIL //////////
                                             child: Center(
                                               child: CircleAvatar(
                                                 radius: 80,
@@ -273,6 +293,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                         MainAxisAlignment.spaceEvenly,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
+                                      ////////// NOMBRE DE EUSUARIO //////////
                                       Text(
                                         nombreUsuario,
                                         style: TextStyle(
