@@ -33,6 +33,39 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Andalucia Pesca',
+      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: Bienvenida(),
+      routes: {
+        '/bienvenida': (context) => Bienvenida(),
+        '/entrarEmail': (context) => const IniciarSesionEmail(),
+        '/registrate': (context) => const Registrate(),
+        '/menuNav': (context) => const MenuNav(),
+        '/clubCompeticion': (context) => const ClubsCompeticion(),
+        '/informacion': (context) => const Informacion(),
+        '/perfilUsuario': (context) => const PerfilUsuario(),
+        '/subirCaptura': (context) => const SubirCaptura(),
+        '/guardarZona': (context) => const GuardarZona(),
+        '/noticias': (context) => const Noticia(),
+        '/normativa': (context) => const Normativa(),
+        '/zonasRestringidas': (context) => const ZonasRestringidas(),
+        '/zonasPermitidas': (context) => const ZonasPermitidas(),
+        '/especiesProhibidas': (context) => const EspeciesProhibidas(),
+        '/especiesPermitidas': (context) => const EspeciesPermitidas(),
+      },
+    );
+  }
+}
+
+
+
   // @override
   // Widget build(BuildContext context) => MaterialApp(
   //       home: StreamBuilder<User?>(
@@ -72,34 +105,3 @@ class MyApp extends StatelessWidget {
   //         '/especiesPermitidas': (context) => const EspeciesPermitidas(),
   //       },
   //     );
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Andalucia Pesca',
-      debugShowCheckedModeBanner: false, // Oculta la etiqueta Debug del Appbar
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Bienvenida(),
-      routes: {
-        '/bienvenida': (context) => Bienvenida(),
-        '/entrarEmail': (context) => const IniciarSesionEmail(),
-        '/registrate': (context) => const Registrate(),
-        '/menuNav': (context) => const MenuNav(),
-        '/clubCompeticion': (context) => const ClubsCompeticion(),
-        '/informacion': (context) => const Informacion(),
-        '/perfilUsuario': (context) => const PerfilUsuario(),
-        '/subirCaptura': (context) => const SubirCaptura(),
-        '/guardarZona': (context) => const GuardarZona(),
-        '/noticias': (context) => const Noticia(),
-        '/normativa': (context) => const Normativa(),
-        '/zonasRestringidas': (context) => const ZonasRestringidas(),
-        '/zonasPermitidas': (context) => const ZonasPermitidas(),
-        '/especiesProhibidas': (context) => const EspeciesProhibidas(),
-        '/especiesPermitidas': (context) => const EspeciesPermitidas(),
-      },
-    );
-  }
-}

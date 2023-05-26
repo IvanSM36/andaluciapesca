@@ -49,7 +49,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
   String fotoPerfil = "";
 
   // Metodo para obtener los datos de un usuario
-  Future<void> getUsuario() async {
+  void _saveDataUsuario() async {
     final DocumentSnapshot<Map<String, dynamic>> snapshot =
         await db.collection('usuarios').doc(user?.email).get();
 
@@ -64,54 +64,44 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
 
     final prefs = await SharedPreferences.getInstance();
 
-    setState(() {
-      prefs.setString("email", email);
-      prefs.setString("nombreUsuario", nombreUsuario);
-      prefs.setString("nombre", nombre);
-      prefs.setString("apellidos", apellidos);
-      prefs.setString("telefono", telefono);
-      prefs.setString("fotoPerfil", fotoPerfil);
-
-      email = prefs.getString("email") ?? "";
-      nombreUsuario = prefs.getString("nombreUsuario") ?? "";
-      nombre = prefs.getString("nombre") ?? "";
-      apellidos = prefs.getString("apellidos") ?? "";
-      telefono = prefs.getString("telefono") ?? "";
-      fotoPerfil = prefs.getString("fotoPerfil") ?? "";
-    });
-
-    // print(prefs.getString("email"));
-    // print(prefs.getString("nombreUsuario"));
-    // print(prefs.getString("nombre"));
-    // prefs.remove(email);
-    // print(prefs.getString(email));
+      await prefs.setString("email", email);
+      await prefs.setString("nombreUsuario", nombreUsuario);
+      await prefs.setString("nombre", nombre);
+      await prefs.setString("apellidos", apellidos);
+      await prefs.setString("telefono", telefono);
+      await prefs.setString("fotoPerfil", fotoPerfil); 
   }
+
+  Future<String?> loadDataUsuario(String key) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
+
+  void cargarValorAlmacenado() async {
+    String? emailShared = await loadDataUsuario('email');
+    String? nombreUsuarioShared = await loadDataUsuario('nombreUsuario');
+    String? nombreShared = await loadDataUsuario('nombre');
+    String? apellidosShared = await loadDataUsuario('apellidos');
+    String? telefonoShared = await loadDataUsuario('telefono');
+    String? fotoPerfilShared = await loadDataUsuario('fotoPerfil');
+
+    
+    setState(() {
+      email = emailShared ?? "";
+      nombreUsuario = nombreUsuarioShared ?? "";
+      nombre = nombreShared ?? "";
+      apellidos = apellidosShared ?? "";
+      telefono = telefonoShared ?? "";
+      fotoPerfil = fotoPerfilShared ?? "";
+    });
+  }
+
 
   @override
   void initState() {
     super.initState();
-    getUsuario();
-    //cargarDatosShared();
+    cargarValorAlmacenado();
   }
-
-  // cargarDatosShared() async {
-  //   prefs = await SharedPreferences.getInstance();
-
-  //   setState(() {
-  //     email = prefs.getString("email") ?? "";
-  //     nombreUsuario = prefs.getString("nombreUsuario") ?? "";
-  //     nombre = prefs.getString("nombre") ?? "";
-  //     apellidos = prefs.getString("apellidos") ?? "";
-  //     telefono = prefs.getString("telefono") ?? "";
-  //     fotoPerfil = prefs.getString("fotoPerfil") ?? "";
-  //   });
-
-  //   print(prefs.getString());
-  //   print(prefs.getString("nombreUsuario"));
-  //   print(prefs.getString("nombre"));
-  //   prefs.remove(email);
-  //   print(prefs.getString("email"));
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -293,7 +283,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                         MainAxisAlignment.spaceEvenly,
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      ////////// NOMBRE DE EUSUARIO //////////
+                                      ////////// NOMBRE DE USUARIO //////////
                                       Text(
                                         nombreUsuario,
                                         style: TextStyle(
