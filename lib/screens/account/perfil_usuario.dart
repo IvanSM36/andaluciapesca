@@ -96,10 +96,15 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
     });
   }
 
+  Future<void> removeData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 
   @override
   void initState() {
     super.initState();
+    _saveDataUsuario();
     cargarValorAlmacenado();
   }
 
@@ -133,20 +138,10 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                       LoginGoogleUtils().signOutGoogle();
                       FirebaseAuth.instance.signOut();
 
-                      final prefs = await SharedPreferences.getInstance();
-
-                      print(email);
-
-                      await prefs.clear();
-
-                      email = prefs.getString("email") ?? "";
-                      nombreUsuario = prefs.getString("nombreUsuario") ?? "";
-                      nombre = prefs.getString("nombre") ?? "";
-                      apellidos = prefs.getString("apellidos") ?? "";
-                      telefono = prefs.getString("telefono") ?? "";
-                      fotoPerfil = prefs.getString("fotoPerfil") ?? "";
-
-                      print(email);
+                      removeData();
+                      
+                      
+                      print("cerrar sesion despues de limpiar" + email);
 
                       Navigator.of(context, rootNavigator: true)
                           .pushAndRemoveUntil(
