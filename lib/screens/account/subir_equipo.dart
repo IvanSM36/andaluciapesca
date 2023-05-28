@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class GuardarZona extends StatelessWidget {
-  const GuardarZona({super.key});
+class SubirEquipo extends StatelessWidget {
+  const SubirEquipo({super.key});
 
   @override
   Widget build(BuildContext context) {

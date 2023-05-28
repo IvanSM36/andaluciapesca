@@ -3,22 +3,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Usuario {
   // Atributos
-  String email;
-  String nombreUsuario;
-  String nombre;
-  String apellidos;
-  String fotoPerfil;
-  String telefono;
+  String? email;
+  String? nombreUsuario;
+  String? nombre;
+  String? apellidos;
+  String? fotoPerfil;
+  String? telefono;
+  String? urlImagen;
+  List? galeria;
 
   // Constructor
-  Usuario({
-    required this.email,
-    required this.nombreUsuario,
-    required this.nombre,
-    required this.apellidos,
-    required this.fotoPerfil,
-    required this.telefono,
-  });
+  Usuario(
+      {this.email,
+      this.nombreUsuario,
+      this.nombre,
+      this.apellidos,
+      this.fotoPerfil,
+      this.telefono,
+      this.urlImagen,
+      this.galeria});
 
   // Metodo que crea un Usuario apartir de un DocumentSnapshot que contiene los datos de la base de datos
   factory Usuario.fromFirestore(
@@ -33,6 +36,8 @@ class Usuario {
       apellidos: data?['apellidos'],
       fotoPerfil: data?['fotoPerfil'],
       telefono: data?['telefono'],
+      urlImagen: data?['urlImagen'],
+      galeria: data?['galeria'],
     );
   }
 
@@ -45,6 +50,8 @@ class Usuario {
       if (apellidos != null) "apellidos": apellidos,
       if (fotoPerfil != null) "fotoPerfil": fotoPerfil,
       if (telefono != null) "telefono": telefono,
+      if (urlImagen != null) "urlImagen": urlImagen,
+      if (galeria != null) "galeria": galeria,
     };
   }
 }

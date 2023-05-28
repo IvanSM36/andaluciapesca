@@ -17,36 +17,22 @@ class PerfilUsuario extends StatefulWidget {
 }
 
 class _PerfilUsuarioState extends State<PerfilUsuario> {
-  final List<String> images = [
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/981.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/982.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/983.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/984.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/912.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/936.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/987.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/954.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/975.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/990.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/991.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/941.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/947.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/911.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/921.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/671.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/341.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/241.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/291.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/453.jpg',
-    'https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/456.jpg',
-  ];
-
   String email = "";
   String nombreUsuario = "";
   String nombre = "";
   String apellidos = "";
   String telefono = "";
   String fotoPerfil = "";
+  List galeria = [];
+
+  String? emailShared;
+  String? nombreUsuarioShared;
+  String? nombreShared;
+  String? apellidosShared;
+  String? telefonoShared;
+  String? fotoPerfilShared;
+
+  ////////// METODOS  //////////
 
   // Metodo para obtener los datos de un usuario
   void _saveDataUsuario() async {
@@ -55,29 +41,40 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
 
     final Usuario usuario = Usuario.fromFirestore(snapshot, null);
 
-    email = usuario.email;
-    nombreUsuario = usuario.nombreUsuario;
-    nombre = usuario.nombre;
-    apellidos = usuario.apellidos;
-    telefono = usuario.telefono;
-    fotoPerfil = usuario.fotoPerfil;
+    email = usuario.email!;
+    nombreUsuario = usuario.nombreUsuario!;
+    nombre = usuario.nombre!;
+    apellidos = usuario.apellidos!;
+    telefono = usuario.telefono!;
+    fotoPerfil = usuario.fotoPerfil!;
 
-    final prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      await prefs.setString("email", email);
-      await prefs.setString("nombreUsuario", nombreUsuario);
-      await prefs.setString("nombre", nombre);
-      await prefs.setString("apellidos", apellidos);
-      await prefs.setString("telefono", telefono);
-      await prefs.setString("fotoPerfil", fotoPerfil); 
+    await prefs.setString("email", email);
+    await prefs.setString("nombreUsuario", nombreUsuario);
+    await prefs.setString("nombre", nombre);
+    await prefs.setString("apellidos", apellidos);
+    await prefs.setString("telefono", telefono);
+    await prefs.setString("fotoPerfil", fotoPerfil);
+
+    emailShared = await loadDataUsuario('email');
+    nombreUsuarioShared = await loadDataUsuario('nombreUsuario');
+    nombreShared = await loadDataUsuario('nombre');
+    apellidosShared = await loadDataUsuario('apellidos');
+    telefonoShared = await loadDataUsuario('telefono');
+    fotoPerfilShared = await loadDataUsuario('fotoPerfil');
+
+    await _cargarValorAlmacenado();
   }
 
+  // Metodo que obtiene los datos del usuario del sharedPreference
   Future<String?> loadDataUsuario(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(key);
   }
 
-  void cargarValorAlmacenado() async {
+  // Metodo que carga los datos del sharedPreference y los almacena en una variable
+  Future<void> _cargarValorAlmacenado() async {
     String? emailShared = await loadDataUsuario('email');
     String? nombreUsuarioShared = await loadDataUsuario('nombreUsuario');
     String? nombreShared = await loadDataUsuario('nombre');
@@ -85,7 +82,25 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
     String? telefonoShared = await loadDataUsuario('telefono');
     String? fotoPerfilShared = await loadDataUsuario('fotoPerfil');
 
-    
+    print("EmailShared " + "$emailShared");
+    print("email antes de añadir shared " + email);
+
+    setState(() {
+      email = emailShared!;
+      nombreUsuario = nombreUsuarioShared!;
+      nombre = nombreShared!;
+      apellidos = apellidosShared!;
+      telefono = telefonoShared!;
+      fotoPerfil = fotoPerfilShared!;
+    });
+    print("email despues de añadir shared " + email);
+  }
+
+  // Metodo quye limpia los valores del sharedPreferences
+  void _removeData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+
     setState(() {
       email = emailShared ?? "";
       nombreUsuario = nombreUsuarioShared ?? "";
@@ -94,18 +109,27 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
       telefono = telefonoShared ?? "";
       fotoPerfil = fotoPerfilShared ?? "";
     });
+    print("EmailShared despues de limpiar " + "$emailShared");
+    print("email despues de limpiar " + email);
   }
 
-  Future<void> removeData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.clear();
+  // Metodo para obtener la galeria de fotos
+  Future<void> _getGaleriaFotos() async {
+    // Obtengo el usuario
+    final DocumentSnapshot<Map<String, dynamic>> snapshot =
+        await db.collection('usuarios').doc(user?.email).get();
+    final Usuario usuario = Usuario.fromFirestore(snapshot, null);
+
+    galeria = usuario.galeria!;
   }
+
+  ////////// FIN METODOS //////////
 
   @override
   void initState() {
     super.initState();
     _saveDataUsuario();
-    cargarValorAlmacenado();
+    _getGaleriaFotos();
   }
 
   @override
@@ -134,14 +158,10 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                   ),
                   PopupMenuItem(
                     child: const Text('Cerrar sesión'),
-                    onTap: () async {
+                    onTap: () {
+                      _removeData();
                       LoginGoogleUtils().signOutGoogle();
                       FirebaseAuth.instance.signOut();
-
-                      removeData();
-                      
-                      
-                      print("cerrar sesion despues de limpiar" + email);
 
                       Navigator.of(context, rootNavigator: true)
                           .pushAndRemoveUntil(
@@ -257,7 +277,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                               child: CircleAvatar(
                                                 radius: 80,
                                                 backgroundImage:
-                                                    NetworkImage(fotoPerfil),
+                                                    NetworkImage("$fotoPerfil"),
                                               ),
                                             ),
                                           ),
@@ -280,7 +300,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                     children: [
                                       ////////// NOMBRE DE USUARIO //////////
                                       Text(
-                                        nombreUsuario,
+                                        "$nombreUsuario",
                                         style: TextStyle(
                                           fontSize: 32,
                                           color: Colors.white,
@@ -355,18 +375,17 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                               children: [
                                 TabBar(
                                   indicator: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
+                                    borderRadius: BorderRadius.circular(10),
                                     color:
                                         const Color.fromARGB(255, 61, 75, 59),
                                     border: Border.all(
                                       width: 1,
-                                      color: const Color.fromARGB(
-                                          255, 161, 231, 150),
+                                      color: Color.fromARGB(255, 255, 255, 255),
                                     ),
                                     boxShadow: [
                                       BoxShadow(
                                         color: Colors.black.withOpacity(0.7),
-                                        blurRadius: 3,
+                                        blurRadius: 5,
                                         offset: const Offset(0, 4),
                                       ),
                                     ],
@@ -432,53 +451,256 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                 Expanded(
                                   child: TabBarView(
                                     children: [
-                                      //.builder se utiliza cuando el número de elementos no es fijo
-                                      GridView.builder(
-                                        // physics: const NeverScrollableScrollPhysics(), // Desactiva el scroll del propio GridView
-                                        shrinkWrap: true,
-                                        itemCount: images.length,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisCount:
-                                              3, // Número de columnas
-                                          mainAxisSpacing:
-                                              2.0, // Espacio vertical entre elementos
-                                          crossAxisSpacing:
-                                              2.0, // Espacio horizontal entre elementos
-                                        ),
+                                      Column(
+                                        children: [
+                                          ////////// BOTON SUBIR CAPTURAS /////////
+                                          Container(
+                                            width: 200,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.7),
+                                                  spreadRadius: 2,
+                                                  blurRadius: 5,
+                                                  offset: const Offset(0,
+                                                      4), // changes position of shadow
+                                                ),
+                                              ],
+                                            ),
 
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Image.network(images[index],
-                                              fit: BoxFit.cover);
-                                        },
-                                      ),
-                                      // .count se utiliza cuando el número de elementos es fijo
-                                      GridView.count(
-                                        crossAxisCount: 3,
-                                        children: List.generate(
-                                          6,
-                                          (index) => Center(
-                                            child: Text(
-                                              'Zona $index',
-                                              style:
-                                                  const TextStyle(fontSize: 18),
+                                            // Boton
+                                            child: ElevatedButton(
+                                              // Evento para el boton
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context, "/subirCaptura");
+                                              },
+
+                                              // Diseño del boton
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 61, 75, 59),
+                                                minimumSize:
+                                                    const Size(300, 45),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20), // Hacer los bordes más redondos con un radio de 20 píxeles
+                                                ),
+                                                fixedSize: const Size(300, 45),
+                                              ),
+
+                                              // Fila para la imagen y el texto del boton
+                                              child: const Text(
+                                                "Subir captura",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                      GridView.count(
-                                        crossAxisCount: 3,
-                                        children: List.generate(
-                                          6,
-                                          (index) => Center(
-                                            child: Text(
-                                              'Equipo $index',
-                                              style:
-                                                  const TextStyle(fontSize: 18),
+                                          ////////// CAPTURAS //////////
+                                          //.builder se utiliza cuando el número de elementos no es fijo
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 20),
+                                            child: GridView.builder(
+                                              // physics: const NeverScrollableScrollPhysics(), // Desactiva el scroll del propio GridView
+                                              shrinkWrap: true,
+                                              itemCount: galeria.length,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount:
+                                                    3, // Número de columnas
+                                                mainAxisSpacing:
+                                                    2.0, // Espacio vertical entre elementos
+                                                crossAxisSpacing:
+                                                    2.0, // Espacio horizontal entre elementos
+                                              ),
+
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Image.network(
+                                                    galeria[index],
+                                                    fit: BoxFit.cover);
+                                              },
                                             ),
                                           ),
-                                        ),
+                                        ],
+                                      ),
+
+                                      ////// ZONAS //////
+                                      Column(
+                                        children: [
+                                          ////////// BOTON SUBIR ZONA /////////
+                                          Container(
+                                            width: 200,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(0.7),
+                                                  spreadRadius: 2,
+                                                  blurRadius: 5,
+                                                  offset: const Offset(0,
+                                                      4), // changes position of shadow
+                                                ),
+                                              ],
+                                            ),
+
+                                            // Boton
+                                            child: ElevatedButton(
+                                              // Evento para el boton
+                                              onPressed: () {
+                                                Navigator.pushNamed(
+                                                    context, "/subirZona");
+                                              },
+
+                                              // Diseño del boton
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor:
+                                                    const Color.fromARGB(
+                                                        255, 61, 75, 59),
+                                                minimumSize:
+                                                    const Size(300, 45),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20), // Hacer los bordes más redondos con un radio de 20 píxeles
+                                                ),
+                                                fixedSize: const Size(300, 45),
+                                              ),
+
+                                              // Fila para la imagen y el texto del boton
+                                              child: const Text(
+                                                "Subir zona",
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
+                                                  fontSize: 20,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          ////////// ZONAS //////////
+                                          //.builder se utiliza cuando el número de elementos no es fijo
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 20),
+                                            child: GridView.builder(
+                                              // physics: const NeverScrollableScrollPhysics(), // Desactiva el scroll del propio GridView
+                                              shrinkWrap: true,
+                                              itemCount: galeria.length,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount:
+                                                    3, // Número de columnas
+                                                mainAxisSpacing:
+                                                    2.0, // Espacio vertical entre elementos
+                                                crossAxisSpacing:
+                                                    2.0, // Espacio horizontal entre elementos
+                                              ),
+
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Image.network(
+                                                    galeria[index],
+                                                    fit: BoxFit.cover);
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      ///// Equipo /////
+                                      Column(
+                                        children: [
+                                          Center(
+                                            child: Container(
+                                              width: 200,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(50),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.black
+                                                        .withOpacity(0.7),
+                                                    spreadRadius: 2,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0,
+                                                        4), // changes position of shadow
+                                                  ),
+                                                ],
+                                              ),
+                                              // Boton
+                                              child: ElevatedButton(
+                                                // Evento para el boton
+                                                onPressed: () {
+                                                  Navigator.pushNamed(
+                                                      context, "/subirEquipo");
+                                                },
+
+                                                // Diseño del boton
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 61, 75, 59),
+                                                  minimumSize:
+                                                      const Size(300, 45),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20), // Hacer los bordes más redondos con un radio de 20 píxeles
+                                                  ),
+                                                  fixedSize:
+                                                      const Size(300, 45),
+                                                ),
+
+                                                // Fila para la imagen y el texto del boton
+                                                child: const Text(
+                                                  "Subir equipo",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 20),
+                                            child: GridView.builder(
+                                              // physics: const NeverScrollableScrollPhysics(), // Desactiva el scroll del propio GridView
+                                              shrinkWrap: true,
+                                              itemCount: galeria.length,
+                                              gridDelegate:
+                                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                                crossAxisCount:
+                                                    3, // Número de columnas
+                                                mainAxisSpacing:
+                                                    2.0, // Espacio vertical entre elementos
+                                                crossAxisSpacing:
+                                                    2.0, // Espacio horizontal entre elementos
+                                              ),
+
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Image.network(
+                                                    galeria[index],
+                                                    fit: BoxFit.cover);
+                                              },
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
@@ -495,49 +717,6 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
             ],
           ),
         ),
-
-        ////////// BOTON FLOTANTE ///////////
-        floatingActionButton: Container(
-          width: 200,
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.7),
-                spreadRadius: 0.5,
-                blurRadius: 10,
-                offset: const Offset(0, 4), // changes position of shadow
-              ),
-            ],
-          ),
-          // Boton
-          child: ElevatedButton(
-            // Evento para el boton
-            onPressed: () {
-              Navigator.pushNamed(context, "/subirCaptura");
-            },
-
-            // Diseño del boton
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(255, 61, 75, 59),
-              minimumSize: const Size(300, 45),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    20), // Hacer los bordes más redondos con un radio de 20 píxeles
-              ),
-              fixedSize: const Size(300, 45),
-            ),
-
-            // Fila para la imagen y el texto del boton
-            child: const Text(
-              "Subir captura",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            ),
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }

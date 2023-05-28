@@ -1,8 +1,20 @@
+import 'dart:io';
+
+import 'package:andaluciapesca/services/seleccionarImagen.dart';
+import 'package:andaluciapesca/services/subirImagen.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 
-class SubirCaptura extends StatelessWidget {
+class SubirCaptura extends StatefulWidget {
   const SubirCaptura({super.key});
+
+  @override
+  State<SubirCaptura> createState() => _SubirCapturaState();
+}
+
+class _SubirCapturaState extends State<SubirCaptura> {
+  File? subirImagenFirebase;
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +35,59 @@ class SubirCaptura extends StatelessWidget {
         ),
         body: Column(
           children: [
+            //Compruebo si existe una imagen  muestro la imagen, si no solo el cuadro
+            subirImagenFirebase != null
+                ? Image.file(subirImagenFirebase!)
+                : Container(
+                    margin: const EdgeInsets.all(10),
+                    height: 200,
+                    width: double.infinity,
+                    decoration:
+                        BoxDecoration(border: Border.all(color: Colors.black)),
+                  ),
             ElevatedButton(
               onPressed: () async {
-                // aquí puedes mostrar la imagen seleccionada en un widget
+                // Obtenemos la imagen con el metodo getImage
+                final XFile? imagen = await getImage();
+
+                //
+                setState(() {
+                  subirImagenFirebase = File(imagen!.path);
+                });
               },
               child: Text('Seleccionar imagen'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                // Compruebo, si la variable tiene una imagen la subo, si no tiene no hace nada
+                if (subirImagenFirebase != null) {
+                  final uploaded = await subirImagen(subirImagenFirebase!);
+
+                  //Como retorna un booleano podemos mostrar un mensaje si se ha subido correctamente o no
+                  if (uploaded) {
+                    Fluttertoast.showToast(
+                        msg: "Se ha subido la imagen correctamente.",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 5,
+                        backgroundColor: Color.fromARGB(255, 108, 173, 70),
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: "No se ha podido subir la imagen",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 5,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  }
+                } else {
+                  return; //No hace nada
+                }
+              },
+              child: Text('Subir imagen'),
             ),
           ],
         ),

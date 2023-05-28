@@ -24,7 +24,7 @@ class LoginEmailUtils {
             msg: "Tienes que verificar tu cuenta antes de iniciar sesión.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
+            timeInSecForIosWeb: 5,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
@@ -38,7 +38,7 @@ class LoginEmailUtils {
             msg: "El Email introducido no existe",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
+            timeInSecForIosWeb: 5,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
@@ -49,7 +49,7 @@ class LoginEmailUtils {
             msg: "Contraseña incorrecta.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
+            timeInSecForIosWeb: 5,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);
@@ -60,7 +60,7 @@ class LoginEmailUtils {
             msg: "El formato del Email introducido no es valido.",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            timeInSecForIosWeb: 3,
+            timeInSecForIosWeb: 5,
             backgroundColor: Colors.red,
             textColor: Colors.white,
             fontSize: 16.0);

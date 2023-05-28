@@ -22,15 +22,22 @@ Future<void> createUserGoogle() async {
 }
 
 // Metodo para añadir los datos del usuario a la base de datos
-Future<void> agregarDatosUsuario(String email, String nombreUsuario,
-    String nombre, String apellidos, String telefono, String fotoPerfil) async {
+Future<void> agregarDatosUsuario(
+  String email,
+  String nombreUsuario,
+  String nombre,
+  String apellidos,
+  String telefono,
+  String fotoPerfil,
+) async {
   final Usuario usuario = Usuario(
-      email: email,
-      nombreUsuario: nombreUsuario,
-      nombre: nombre,
-      apellidos: apellidos,
-      fotoPerfil: fotoPerfil,
-      telefono: telefono);
+    email: email,
+    nombreUsuario: nombreUsuario,
+    nombre: nombre,
+    apellidos: apellidos,
+    fotoPerfil: fotoPerfil,
+    telefono: telefono,
+  );
 
   await FirebaseFirestore.instance
       .collection("usuarios")
@@ -38,12 +45,27 @@ Future<void> agregarDatosUsuario(String email, String nombreUsuario,
       .set(usuario.toFirestore());
 }
 
-// Metodo para obtener los datos de un usuario
-Future<Usuario> getUsuario() async {
+// Metodo para añade el url de la imagen a la base de datos del usuario
+Future<void> agregarURLImagenUsuario(String url) async {
+  // Obtengo el usuario
   final DocumentSnapshot<Map<String, dynamic>> snapshot =
       await db.collection('usuarios').doc(user?.email).get();
-
   final Usuario usuario = Usuario.fromFirestore(snapshot, null);
 
-  return usuario;
+  // Obtén una instancia de la colección de usuarios en Firestore
+  final CollectionReference usersCollection =
+      FirebaseFirestore.instance.collection('usuarios');
+
+// Obtén el documento del usuario existente
+  final DocumentReference userDocRef = usersCollection.doc(usuario.email);
+
+// Define el nuevo campo de Array de Strings de URLs
+  final List<String> urls = [url];
+
+// Actualiza el documento del usuario añadiendo el campo de URLs
+  userDocRef.update({'galeria': FieldValue.arrayUnion(urls)}).then((_) {
+    print('Campo de URLs añadido correctamente.');
+  }).catchError((error) {
+    print('Error al añadir el campo de URLs: $error');
+  });
 }
