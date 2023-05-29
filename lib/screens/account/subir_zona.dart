@@ -26,7 +26,7 @@ class _SubirZonaState extends State<SubirZona> {
         ),
         body: MapboxMap(
           accessToken:
-              'pk.eyJ1IjoiaXZhbnNtMjAiLCJhIjoiY2xpNjZoYjRlMHdwazNmcGN5dXZpaDBncSJ9.UL-6MsW72UA_lqPXhIzJ-Q',
+              'sk.eyJ1IjoiaXZhbnNtMjAiLCJhIjoiY2xpOGh5aDUxMWNraTNla2J3Z3lhMDQzdCJ9.ocMmh6nrCoW_isWMjheENw',
           styleString: 'mapbox://styles/ivansm20/cli67fq6r02k801r000n8daa8',
           onMapCreated: _onMapCreated,
           initialCameraPosition: const CameraPosition(
