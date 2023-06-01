@@ -1,8 +1,7 @@
 import 'package:andaluciapesca/utils/firebase_service.dart';
 import 'package:flutter/material.dart';
 
-import 'package:andaluciapesca/utils/RegisterUtils.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:andaluciapesca/utils/register_utils.dart';
 
 class Registrate extends StatefulWidget {
   const Registrate({super.key});
@@ -312,7 +311,7 @@ class _RegistrateState extends State<Registrate> {
                                         emailController.text.trim(),
                                         passwordController.text.trim());
 
-                                    agregarDatosUsuario(
+                                    FirebaseService().setUserData(
                                         emailController.text,
                                         userController.text,
                                         nameController.text,

@@ -2,7 +2,7 @@
 
 import 'package:andaluciapesca/providers/Usuario.dart';
 import 'package:andaluciapesca/screens/login/bienvenida.dart';
-import 'package:andaluciapesca/utils/LoginGoogleUtils.dart';
+import 'package:andaluciapesca/utils/login_google_utils.dart';
 import 'package:andaluciapesca/utils/firebase_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -135,7 +135,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      //debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         ///// APPBAR /////
         appBar: AppBar(

@@ -1,8 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:andaluciapesca/utils/LoginGoogleUtils.dart';
+import 'package:andaluciapesca/utils/login_google_utils.dart';
 import 'package:andaluciapesca/utils/firebase_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,7 +9,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 class Bienvenida extends StatelessWidget {
   Bienvenida({super.key});
 
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
   @override
@@ -90,7 +88,7 @@ class Bienvenida extends StatelessWidget {
                               Navigator.pushNamed(context, "/menuNav");
                             } else {
                               // Si no existe, navegamos a la pantalla menunav y creamos el usuario
-                              createUserGoogle();
+                              FirebaseService().setUserDataGoogle();
                             }
                           } else {
                             // Si falla, mostramos una ventana de alerta con el mensaje de error
@@ -153,12 +151,12 @@ class Bienvenida extends StatelessWidget {
                     ),
                   ),
                 ),
-                //////////////////////////////////////
 
                 //////////   Boton Entrar con E-mail   //////////
-                const SizedBox(
-                    height:
-                        10), // Añadir un espacio en blanco entre la imagen y el boton
+
+                ///// Añadir un espacio en blanco entre la imagen y el boton
+                const SizedBox(height: 10),
+
                 // Contenedor para darle sombra
                 Container(
                   decoration: BoxDecoration(
@@ -172,21 +170,22 @@ class Bienvenida extends StatelessWidget {
                       ),
                     ],
                   ),
-                  // Boton
+
+                  ////////// BOTON //////////
                   child: ElevatedButton(
                     // Evento del boton
                     onPressed: () {
                       Navigator.pushNamed(context, '/entrarEmail');
                     },
 
-                    // Diseño del boton
+                    ////////// Diseño del boton
                     style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(200, 61, 75, 59),
-                        minimumSize:
-                            const Size(0, 45), // Tamaño mínimo del botón
+                        // Tamaño mínimo del botón
+                        minimumSize: const Size(0, 45),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(
-                              20), // Hacer los bordes más redondos con un radio de 20 píxeles
+                          // Hacer los bordes más redondos con un radio de 20 píxeles
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         fixedSize: const Size(300, 45)),
 
@@ -218,7 +217,6 @@ class Bienvenida extends StatelessWidget {
                     ),
                   ),
                 ),
-                //////////////////////////////////////
 
                 //////////   Boton Registrate    //////////
                 const SizedBox(height: 10), // Añadir un espacio en blanco
@@ -230,8 +228,8 @@ class Bienvenida extends StatelessWidget {
                         color: Colors.black.withOpacity(0.5),
                         spreadRadius: 0.3,
                         blurRadius: 10,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
+                        // changes position of shadow
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
@@ -245,12 +243,14 @@ class Bienvenida extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                         backgroundColor:
                             const Color.fromARGB(200, 255, 255, 255),
-                        minimumSize:
-                            const Size(0, 45), // Tamaño mínimo del botón
+                        // Tamaño mínimo del botón
+                        minimumSize: const Size(0, 45),
                         shape: RoundedRectangleBorder(
+                          // Hacer los bordes más redondos con un radio de 20 píxeles
                           borderRadius: BorderRadius.circular(20),
-                        ), // Hacer los bordes más redondos con un radio de 20 píxeles
+                        ),
                         fixedSize: const Size(300, 45)),
+
                     // Fila para la imagen y el texto del boton
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
