@@ -5,12 +5,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginEmailUtils {
-  late BuildContext
-      context; // Variable de instancia para almacenar el BuildContext
+  // Variable de instancia para almacenar el BuildContext
+  late BuildContext context;
 
-  LoginEmailUtils(BuildContext context) {
-    this.context = context; // Asignar el contexto al variable de instancia
-  }
+  LoginEmailUtils(this.context);
 
   Future<void> signInWithEmail(String email, String password) async {
     try {

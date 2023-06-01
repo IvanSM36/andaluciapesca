@@ -24,7 +24,7 @@ Future<bool> subirImagen(File image) async {
 
   // Compruebo si snapshot terminó correctamnte retorno true si no false
   if (snapshot.state == TaskState.success) {
-    agregarURLImagenUsuario(url);
+    FirebaseService().setImageInGallery(url);
 
     return true;
   } else {

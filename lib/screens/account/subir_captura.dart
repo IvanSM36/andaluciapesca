@@ -55,7 +55,7 @@ class _SubirCapturaState extends State<SubirCaptura> {
                   subirImagenFirebase = File(imagen!.path);
                 });
               },
-              child: Text('Seleccionar imagen'),
+              child: const Text('Seleccionar imagen'),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -70,7 +70,8 @@ class _SubirCapturaState extends State<SubirCaptura> {
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         timeInSecForIosWeb: 5,
-                        backgroundColor: Color.fromARGB(255, 108, 173, 70),
+                        backgroundColor:
+                            const Color.fromARGB(255, 108, 173, 70),
                         textColor: Colors.white,
                         fontSize: 16.0);
                   } else {
@@ -87,7 +88,7 @@ class _SubirCapturaState extends State<SubirCaptura> {
                   return; //No hace nada
                 }
               },
-              child: Text('Subir imagen'),
+              child: const Text('Subir imagen'),
             ),
           ],
         ),

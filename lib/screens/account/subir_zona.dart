@@ -34,17 +34,6 @@ class _SubirZonaState extends State<SubirZona> {
             zoom: 5,
           ),
         ),
-
-        // FlutterMap(
-        //   options: MapOptions(
-        //       center: positionMap, zoom: 13.0, minZoom: 2, maxZoom: 25),
-        //   nonRotatedChildren: [
-        //     TileLayer(
-        //       urlTemplate:
-        //           'https://api.mapbox.com/styles/v1/ivansm20/cli67fq6r02k801r000n8daa8.html?title=true&access_token=pk.eyJ1IjoiaXZhbnNtMjAiLCJhIjoiY2xpNjZoYjRlMHdwazNmcGN5dXZpaDBncSJ9.UL-6MsW72UA_lqPXhIzJ-Q#6.8/38.152179/-3.934219/0',
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }

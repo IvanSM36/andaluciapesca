@@ -23,12 +23,11 @@ class Usuario {
       this.urlImagen,
       this.galeria});
 
-  // Metodo que crea un Usuario apartir de un DocumentSnapshot que contiene los datos de la base de datos
-  factory Usuario.fromFirestore(
-    DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  ) {
+  // Metodo que crea un Usuario apartir de un DocumentSnapshot que contiene los datos de la BBDD de Firestore
+  factory Usuario.fromFirestore(DocumentSnapshot<Map<String, dynamic>> snapshot,
+      SnapshotOptions? options) {
     final data = snapshot.data();
+
     return Usuario(
       email: data?['email'],
       nombreUsuario: data?['nombreUsuario'],
@@ -41,7 +40,7 @@ class Usuario {
     );
   }
 
-  //Metodo para mapear los datos del usuario
+  //Metodo para mapear los datos del usuario a un formato compatible con Firestore y subirlo a la BBDD
   Map<String, dynamic> toFirestore() {
     return {
       if (email != null) "email": email,
