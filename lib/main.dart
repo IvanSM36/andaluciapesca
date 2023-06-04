@@ -7,7 +7,6 @@ import 'package:andaluciapesca/screens/account/zonas_restringidas.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'services/firebase_options.dart';
-import 'package:dcdg/dcdg.dart';
 
 import 'package:andaluciapesca/screens/login/bienvenida.dart';
 import 'package:andaluciapesca/screens/login/iniciar_sesion_email.dart';

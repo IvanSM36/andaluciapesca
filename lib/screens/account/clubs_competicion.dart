@@ -110,7 +110,7 @@ class _ClubsCompeticion extends State<ClubsCompeticion> {
                               child: Center(
                                 child: Text(
                                   "Elemento $index",
-                                  style: TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
                               ),
                             );
@@ -131,7 +131,7 @@ class _ClubsCompeticion extends State<ClubsCompeticion> {
                               child: Center(
                                 child: Text(
                                   "Elemento $index",
-                                  style: TextStyle(fontSize: 20),
+                                  style: const TextStyle(fontSize: 20),
                                 ),
                               ),
                             );

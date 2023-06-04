@@ -9,12 +9,11 @@ class RegisterUtils {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   //final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  late BuildContext
-      context; // Variable de instancia para almacenar el BuildContext
+  // Variable de instancia para almacenar el BuildContext
+  late BuildContext context;
 
-  RegisterUtils(BuildContext context) {
-    this.context = context; // Asignar el contexto al variable de instancia
-  }
+  // Asignar el contexto al variable de instancia
+  RegisterUtils(this.context);
 
   // Metodo future que registra una cuenta con email y contraseña (Future )
   Future<void> signUp(String email, String password) async {
