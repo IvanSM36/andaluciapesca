@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:andaluciapesca/utils/login_google_utils.dart';
-import 'package:andaluciapesca/utils/firebase_service.dart';
+import 'package:andaluciapesca/services/login_google_service.dart';
+import 'package:andaluciapesca/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_sign_in/google_sign_in.dart';

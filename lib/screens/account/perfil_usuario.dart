@@ -1,9 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:andaluciapesca/providers/Usuario.dart';
+import 'package:andaluciapesca/models/Usuario.dart';
 import 'package:andaluciapesca/screens/login/bienvenida.dart';
-import 'package:andaluciapesca/utils/login_google_utils.dart';
-import 'package:andaluciapesca/utils/firebase_service.dart';
+import 'package:andaluciapesca/services/login_google_service.dart';
+import 'package:andaluciapesca/services/firebase_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:mapbox_gl/mapbox_gl.dart';
 
-
 const positionMap = LatLng(37.376796, -5.986858);
-
 
 class PerfilUsuario extends StatefulWidget {
   const PerfilUsuario({super.key});
@@ -23,7 +21,6 @@ class PerfilUsuario extends StatefulWidget {
 }
 
 class _PerfilUsuarioState extends State<PerfilUsuario> {
-
   late MapboxMapController mapController;
 
   void _onMapCreated(MapboxMapController controller) {
@@ -254,8 +251,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                           gradient: LinearGradient(
                                             colors: [
                                               Color.fromARGB(255, 41, 46, 40),
-                                              Color.fromARGB(
-                                                  255, 68, 105, 63),
+                                              Color.fromARGB(255, 68, 105, 63),
                                               Color.fromARGB(
                                                   255, 113, 168, 105),
                                               Color.fromARGB(
@@ -332,13 +328,11 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                 Container(
                                   margin: const EdgeInsets.all(8),
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
                                       IconButton(
-                                        icon:
-                                            const Icon(Icons.tiktok_outlined),
+                                        icon: const Icon(Icons.tiktok_outlined),
                                         iconSize: 40,
                                         color: Colors.white,
                                         onPressed: () {
@@ -388,11 +382,11 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                               TabBar(
                                 indicator: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  color:
-                                      const Color.fromARGB(255, 61, 75, 59),
+                                  color: const Color.fromARGB(255, 61, 75, 59),
                                   border: Border.all(
                                     width: 1,
-                                    color: const Color.fromARGB(255, 255, 255, 255),
+                                    color: const Color.fromARGB(
+                                        255, 255, 255, 255),
                                   ),
                                   boxShadow: [
                                     BoxShadow(
@@ -496,12 +490,10 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                               backgroundColor:
                                                   const Color.fromARGB(
                                                       255, 61, 75, 59),
-                                              minimumSize:
-                                                  const Size(300, 45),
+                                              minimumSize: const Size(300, 45),
                                               shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        20), // Hacer los bordes más redondos con un radio de 20 píxeles
+                                                borderRadius: BorderRadius.circular(
+                                                    20), // Hacer los bordes más redondos con un radio de 20 píxeles
                                               ),
                                               fixedSize: const Size(300, 45),
                                             ),
@@ -535,9 +527,8 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                                   2.0, // Espacio horizontal entre elementos
                                             ),
 
-                                            itemBuilder:
-                                                (BuildContext context,
-                                                    int index) {
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
                                               return Image.network(
                                                   galeria[index],
                                                   fit: BoxFit.cover);
@@ -603,23 +594,26 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                         ),*/
                                         ////////// ZONAS //////////
                                         //.builder se utiliza cuando el número de elementos no es fijo
-                                        
-                                        Center(    
-                                         child: Container(
-                                          margin: const EdgeInsets.only(top: 20),
+
+                                        Center(
+                                          child: Container(
+                                            height: 492,
+                                            width: 600,
+                                            margin:
+                                                const EdgeInsets.only(top: 20),
                                             child: MapboxMap(
                                               accessToken:
                                                   'sk.eyJ1IjoiaXZhbnNtMjAiLCJhIjoiY2xpOGh5aDUxMWNraTNla2J3Z3lhMDQzdCJ9.ocMmh6nrCoW_isWMjheENw',
-                                              styleString: 'mapbox://styles/ivansm20/cli67fq6r02k801r000n8daa8',
+                                              styleString:
+                                                  'mapbox://styles/ivansm20/cli67fq6r02k801r000n8daa8',
                                               onMapCreated: _onMapCreated,
-                                              initialCameraPosition: const CameraPosition(
+                                              initialCameraPosition:
+                                                  const CameraPosition(
                                                 target: positionMap,
                                                 zoom: 5,
                                               ),
                                             ),
-                                          ),                                                                             
-                                          
-                                        
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -663,8 +657,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                                       BorderRadius.circular(
                                                           20), // Hacer los bordes más redondos con un radio de 20 píxeles
                                                 ),
-                                                fixedSize:
-                                                    const Size(300, 45),
+                                                fixedSize: const Size(300, 45),
                                               ),
 
                                               // Fila para la imagen y el texto del boton
@@ -695,9 +688,8 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                                                   2.0, // Espacio horizontal entre elementos
                                             ),
 
-                                            itemBuilder:
-                                                (BuildContext context,
-                                                    int index) {
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
                                               return Image.network(
                                                   galeria[index],
                                                   fit: BoxFit.cover);

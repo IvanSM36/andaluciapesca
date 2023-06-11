@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:andaluciapesca/utils/firebase_service.dart';
+import 'package:andaluciapesca/services/firebase_service.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 final FirebaseStorage storage = FirebaseStorage.instance;

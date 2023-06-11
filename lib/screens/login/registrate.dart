@@ -1,7 +1,7 @@
-import 'package:andaluciapesca/utils/firebase_service.dart';
+import 'package:andaluciapesca/services/firebase_service.dart';
 import 'package:flutter/material.dart';
 
-import 'package:andaluciapesca/utils/register_utils.dart';
+import 'package:andaluciapesca/services/register_service.dart';
 
 class Registrate extends StatefulWidget {
   const Registrate({super.key});

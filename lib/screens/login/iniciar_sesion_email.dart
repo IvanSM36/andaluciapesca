@@ -1,4 +1,4 @@
-import 'package:andaluciapesca/utils/login_email_utils.dart';
+import 'package:andaluciapesca/services/login_email_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
