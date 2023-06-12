@@ -47,19 +47,18 @@ class Bienvenida extends StatelessWidget {
                 ),
 
                 // Imagen Logo
-                const SizedBox(height: 60),
-                Image.asset(
-                  "assets/images/logo.png",
-                  height: 200,
+                Container(
+                  margin: const EdgeInsets.only(top: 60),
+                  child: Image.asset(
+                    "assets/images/logo.png",
+                    height: 200,
+                  ),
                 ),
 
                 //////////   Boton Entrar con Google  //////////
-                const SizedBox(
-                    height:
-                        40), // Añadir un espacio en blanco entre la imagen y el boton
-
                 // Contenedor para darle sombra
                 Container(
+                  margin: const EdgeInsets.only(top: 40),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -75,13 +74,13 @@ class Bienvenida extends StatelessWidget {
                   child: ElevatedButton(
                     // Evento para el boton
                     onPressed: () async {
-                      await LoginGoogleUtils().signInWithGoogle().then(
+                      await LoginGoogleServices().signInWithGoogle().then(
                         (user) async {
                           // Comprobamos si se ha iniciado sesión
                           if (user != null) {
                             // Verificar si el usuario de Google ya existe
-                            bool userExists =
-                                await LoginGoogleUtils().checkUserExists(user);
+                            bool userExists = await LoginGoogleServices()
+                                .checkUserExists(user);
 
                             if (userExists) {
                               // Si existe me redirige a la pantalla menu
@@ -154,11 +153,9 @@ class Bienvenida extends StatelessWidget {
 
                 //////////   Boton Entrar con E-mail   //////////
 
-                ///// Añadir un espacio en blanco entre la imagen y el boton
-                const SizedBox(height: 10),
-
                 // Contenedor para darle sombra
                 Container(
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
@@ -219,9 +216,9 @@ class Bienvenida extends StatelessWidget {
                 ),
 
                 //////////   Boton Registrate    //////////
-                const SizedBox(height: 10), // Añadir un espacio en blanco
                 // Contenedor para darle sombra
                 Container(
+                  margin: const EdgeInsets.only(top: 10),
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(

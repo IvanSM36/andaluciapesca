@@ -6,21 +6,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class LoginGoogleUtils {
+class LoginGoogleServices {
   static const String TAG = "LoginGoogleUtils";
+
   // Controlar la autenticacion
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
   // Funcionalidad de iniciar sesion con google
   final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  // Metodos Google
-  // Iniciar sesion con google
+  // Metodo para Iniciar sesion con google
   Future<User?> signInWithGoogle() async {
-    log(TAG + ", signInWithGoogle() Init...");
-
     // Variable que recoge la cuenta de google que se a elegido para loguear.
     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-    log(TAG + ", signInWithGoogle() googleUser email -> ${googleUser?.email}");
 
     // Objeto donde recogemos la autenticación de Google
     final GoogleSignInAuthentication googleAuth =
@@ -49,6 +47,7 @@ class LoginGoogleUtils {
       final User? currentUser = _auth.currentUser;
       assert(user.uid == currentUser?.uid);
 
+      // Muestro informacion de los datos del usuario logueado por consola
       log(TAG + ", signInWithGoogle() succeeded: $user");
 
       return user;

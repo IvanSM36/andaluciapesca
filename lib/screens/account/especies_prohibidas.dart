@@ -9,7 +9,7 @@ class EspeciesProhibidas extends StatelessWidget {
       title: 'Material App',
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Material App Bar'),
+          title: const Text('Especies prohibidas'),
         ),
         body: const Center(
           child: Text('Especies Prohibidas'),

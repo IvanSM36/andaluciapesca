@@ -170,7 +170,7 @@ class _PerfilUsuarioState extends State<PerfilUsuario> {
                     child: const Text('Cerrar sesión'),
                     onTap: () {
                       _removeData();
-                      LoginGoogleUtils().signOutGoogle();
+                      LoginGoogleServices().signOutGoogle();
                       FirebaseAuth.instance.signOut();
 
                       Navigator.of(context, rootNavigator: true)

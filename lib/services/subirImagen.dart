@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 final FirebaseStorage storage = FirebaseStorage.instance;
 
 Future<bool> subirImagen(File image) async {
-  // El path muestra la ruta del archivo, por lo que vamos a separar mediante / para quedarnos que el nombre del archivo.
+  // El path recoge la ruta del archivo, por lo que vamos a separar mediante / para quedarnos que el nombre del archivo.
   final String nameFile = image.path.split("/").last;
 
   // Subimos la imagen al Storage de firebase
@@ -24,7 +24,7 @@ Future<bool> subirImagen(File image) async {
 
   // Compruebo si snapshot terminó correctamnte retorno true si no false
   if (snapshot.state == TaskState.success) {
-    FirebaseService().setImageInGallery(url);
+    FirebaseService().setImageInCapturas(url);
 
     return true;
   } else {

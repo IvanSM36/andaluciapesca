@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class LoginEmailUtils {
-  // Variable de instancia para almacenar el BuildContext
+class LoginEmailServices {
+  // Variable de instancia para almacenar el BuildContext El BuildContext es la referencia al contexto en el que se encuentra un widget dentro de la interfaz de usuario.
   late BuildContext context;
+  LoginEmailServices(this.context);
 
-  LoginEmailUtils(this.context);
-
+  // Metodo que inicia sesion con email
   Future<void> signInWithEmail(String email, String password) async {
     try {
       final credential = await FirebaseAuth.instance

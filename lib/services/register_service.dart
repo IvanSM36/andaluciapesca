@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class RegisterUtils {
+class RegisterServices {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   //final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -13,7 +13,7 @@ class RegisterUtils {
   late BuildContext context;
 
   // Asignar el contexto al variable de instancia
-  RegisterUtils(this.context);
+  RegisterServices(this.context);
 
   // Metodo future que registra una cuenta con email y contraseña (Future )
   Future<void> signUp(String email, String password) async {
@@ -89,18 +89,4 @@ class RegisterUtils {
       await user.sendEmailVerification();
     }
   }
-
-  // Agrega nombre de usuario nombre y apellido a la base de datos
-  /* Future<void> addUser(String username, String name, String apellido) async {
-    try {
-      await _firestore.collection('usuarios').add({
-        'username': username,
-        'nombre': name,
-        'apellido': apellido,
-      });
-      print('Usuario agregado con éxito');
-    } catch (e) {
-      print('Error al agregar usuario: $e');
-    }
-  }*/
 }
